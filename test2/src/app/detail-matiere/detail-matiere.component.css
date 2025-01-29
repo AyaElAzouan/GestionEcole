@@ -1,0 +1,229 @@
+.custom-input-container {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+input {
+    border: none;
+    border-bottom: 1px solid #ccc; /* Ligne initiale */
+    outline: none;
+    padding: 10px 0;
+    width: 100%;
+    background: transparent;
+    color: #333;
+    transition: border-color 0.3s ease;
+}
+
+input:focus {
+    border-bottom: 1px solid #007bff; /* Couleur de la ligne au focus */
+}
+
+.underline {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 100%;
+    background-color: #007bff;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+input:focus ~ .underline,
+input:not(:placeholder-shown) ~ .underline {
+    transform: scaleX(1);
+}
+
+.floating-placeholder {
+    position: absolute;
+    left: 0;
+    top: 10px;
+    color: #ccc;
+    font-size: 16px;
+    pointer-events: none;
+    transition: top 0.3s ease, font-size 0.3s ease, color 0.3s ease;
+}
+
+/* Gère l’effet de la label flottante uniquement au focus ou quand rempli */
+input:focus ~ .floating-placeholder,
+input:not(:placeholder-shown) ~ .floating-placeholder {
+    top: -5px;
+    font-size: 12px;
+    color: #007bff; /* Couleur de la "label" en mode focus/rempli */
+}
+#aboutMe {
+    border-radius: 8px;
+    resize: vertical; /* Permet de redimensionner uniquement en hauteur */
+    padding: 15px;
+    font-size: 1rem;
+}
+.btn-primary {
+    background-color: #b78090;
+    border: none;
+    color: #393939;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+ 
+  
+  
+  .custom-input-container {
+    position: relative;
+}
+
+
+
+
+
+
+/* style de edt */
+
+.timetable {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .headert {
+    display: grid;
+    grid-template-columns: 120px repeat(6, 1fr);
+    background: #f8f9fa;
+    border-bottom: 2px solid #dee2e6;
+    
+  }
+  
+  .time-headert, .day-headert {
+    padding: 12px;
+    text-align: center;
+    font-weight: bold;
+    color: #495057;
+    
+  }
+  
+  .time-slots {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .rowt {
+    display: grid;
+    grid-template-columns: 120px repeat(6, 1fr);
+    border-bottom: 1px solid #dee2e6;
+  }
+  
+  .rowt:last-child {
+    border-bottom: none;
+  }
+  
+  .time-cell {
+    padding: 5px;
+    border-right: 1px solid #dee2e6;
+    background: #f8f9fa;
+    font-size: 0.9em;
+    color: #495057;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .slot {
+    padding: 5px;
+    border-right: 1px solid #dee2e6;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
+  }
+  
+  .slot:last-child {
+    border-right: none;
+  }
+  
+  .break {
+    background-color: #fff3cd;
+    color: #856404;
+    min-height: 40px;
+  }
+  
+  .class-period {
+    min-height: 120px;
+    background-color: #e9ecef;
+    
+  }
+  
+  @media (max-width: 768px) {
+    .timetable {
+      font-size: 0.75rem;
+    }
+    
+    .time-cell, .slot {
+      padding: 2px 4px;
+    }
+    
+    .headert {
+      grid-template-columns: 50px repeat(6, minmax(50px, 1fr));
+    }
+    
+    .rowt {
+      grid-template-columns: 50px repeat(6, minmax(50px, 1fr));
+    }
+  }
+
+
+  select {
+    width: 100%; /* Prend toute la largeur disponible */
+    padding: 0.625rem 1rem; /* Espacement intérieur */
+    border: 1px solid #e5e7eb; /* Bordure grise claire */
+    border-radius: 0.5rem; /* Coins légèrement arrondis */
+    background-color: white; /* Fond blanc */
+    color: #1f2937; /* Couleur du texte */
+    font-size: 0.875rem; /* Taille de la police */
+    transition: all 0.2s; /* Transition douce pour les interactions */
+    cursor: pointer; /* Curseur cliquable */
+    appearance: none; /* Supprime le style natif du champ */
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"); /* Icône de flèche */
+    background-position: right 0.5rem center; /* Position de l'icône */
+    background-repeat: no-repeat; /* Pas de répétition */
+    background-size: 1.5em 1.5em; /* Taille de l'icône */
+    padding-right: 2.5rem; /* Espacement à droite pour l'icône */
+  }
+  /* Style au survol du champ */
+  select:hover {
+    border-color: #cbd5e1; /* Couleur de bordure plus claire */
+  }
+  
+  /* Style au focus */
+  select:focus {
+    outline: none; /* Supprime le contour par défaut */
+    border-color: #3b82f6; /* Bordure bleue */
+  }
+  
+  /* État désactivé */
+  select:disabled {
+    background-color: #f3f4f6; /* Fond gris clair */
+    cursor: not-allowed; /* Curseur interdit */
+  }
+  
+  /* Styles des options */
+  option {
+    padding: 0.5rem; /* Espacement intérieur des options */
+    font-size: 0.875rem; /* Taille de la police */
+  }
+  

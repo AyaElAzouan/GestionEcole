@@ -1,0 +1,187 @@
+.custom-input-container {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+input {
+    border: none;
+    border-bottom: 1px solid #ccc; /* Ligne initiale */
+    outline: none;
+    padding: 10px 0;
+    width: 100%;
+    background: transparent;
+    color: #333;
+    transition: border-color 0.3s ease;
+}
+
+input:focus {
+    border-bottom: 1px solid #007bff; /* Couleur de la ligne au focus */
+}
+
+.underline {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 100%;
+    background-color: #007bff;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+input:focus ~ .underline,
+input:not(:placeholder-shown) ~ .underline {
+    transform: scaleX(1);
+}
+
+.floating-placeholder {
+    position: absolute;
+    left: 0;
+    top: 10px;
+    color: #ccc;
+    font-size: 16px;
+    pointer-events: none;
+    transition: top 0.3s ease, font-size 0.3s ease, color 0.3s ease;
+}
+
+/* Gère l’effet de la label flottante uniquement au focus ou quand rempli */
+input:focus ~ .floating-placeholder,
+input:not(:placeholder-shown) ~ .floating-placeholder {
+    top: -5px;
+    font-size: 12px;
+    color: #007bff; /* Couleur de la "label" en mode focus/rempli */
+}
+#aboutMe {
+    border-radius: 8px;
+    resize: vertical; /* Permet de redimensionner uniquement en hauteur */
+    padding: 15px;
+    font-size: 1rem;
+}
+.btn-primary {
+    background-color: #b78090;
+    border: none;
+    color: #393939;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+ 
+  
+  
+  .custom-input-container {
+    position: relative;
+}
+
+
+
+
+
+
+/* style de edt */
+
+.timetable {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .headert {
+    display: grid;
+    grid-template-columns: 120px repeat(6, 1fr);
+    background: #f8f9fa;
+    border-bottom: 2px solid #dee2e6;
+    
+  }
+  
+  .time-headert, .day-headert {
+    padding: 12px;
+    text-align: center;
+    font-weight: bold;
+    color: #495057;
+    
+  }
+  
+  .time-slots {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .rowt {
+    display: grid;
+    grid-template-columns: 120px repeat(6, 1fr);
+    border-bottom: 1px solid #dee2e6;
+  }
+  
+  .rowt:last-child {
+    border-bottom: none;
+  }
+  
+  .time-cell {
+    padding: 5px;
+    border-right: 1px solid #dee2e6;
+    background: #f8f9fa;
+    font-size: 0.9em;
+    color: #495057;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .slot {
+    padding: 5px;
+    border-right: 1px solid #dee2e6;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
+  }
+  
+  .slot:last-child {
+    border-right: none;
+  }
+  
+  .break {
+    background-color: #fff3cd;
+    color: #856404;
+    min-height: 40px;
+  }
+  
+  .class-period {
+    min-height: 120px;
+    background-color: #e9ecef;
+    
+  }
+  
+  @media (max-width: 768px) {
+    .timetable {
+      font-size: 0.75rem;
+    }
+    
+    .time-cell, .slot {
+      padding: 2px 4px;
+    }
+    
+    .headert {
+      grid-template-columns: 50px repeat(6, minmax(50px, 1fr));
+    }
+    
+    .rowt {
+      grid-template-columns: 50px repeat(6, minmax(50px, 1fr));
+    }
+  }

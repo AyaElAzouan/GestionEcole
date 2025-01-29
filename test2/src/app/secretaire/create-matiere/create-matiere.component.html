@@ -1,0 +1,56 @@
+<div class="main-content">
+    <div class="container-fluid">
+       
+            <div class="col-md-12">
+                <div class="card"> 
+
+     
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Matière</h4>
+                        <p class="card-category">ENSA Tanger</p>
+                    </div>
+                    <div class="card-body">
+                        <form [formGroup]="matForm" (ngSubmit)="onSubmit()">
+                            <div class="row">
+                                <div class="col-md-5">
+                                  <div class="custom-input-container">
+                                    <input  id="nom" formControlName="nom" type="text" required placeholder=" " />
+                                    <label for="nom" class="floating-placeholder">Nom</label>
+                                    <span class="underline"></span>
+                                </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="custom-input-container">
+                                      <input id="volume" formControlName="volume" type="number" required placeholder=" " />
+                                      <label for="volume" class="floating-placeholder">Volume Horaire</label>
+                                      <span class="underline"></span>
+                                    </div>
+                                  </div>
+                               
+                                <div class="select-wrapper">
+               
+                                    <select 
+                                      id="responsable" 
+                                      formControlName="responsable"
+                                    >
+                                      <option value="">Responsable </option>
+                                      <option *ngFor="let nom of listProf" [value]="nom">
+                                        {{ nom }}
+                                      </option>
+                                    </select>
+                                  </div>
+                                  
+                                   
+                                 
+                             
+                             
+                            </div>
+                            
+                            <button mat-raised-button type="submit" class="btn btn-danger pull-right" >Créer </button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+          
+
+

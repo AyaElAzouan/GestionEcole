@@ -1,0 +1,49 @@
+<div class="main-content">
+    <div class="container-fluid">
+       
+            <div class="col-md-12">
+                <div class="card"> 
+
+     
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Professeur</h4>
+                        <p class="card-category">ENSA Tanger</p>
+                    </div>
+                    <div class="card-body">
+                        <form [formGroup]="profForm" (ngSubmit)="onSubmit()">
+                            <div class="row">
+                                <div class="col-md-5">
+                                  <div class="custom-input-container">
+                                    <input  id="nom" formControlName="nom" type="text" required placeholder=" " />
+                                    <label for="nom" class="floating-placeholder">Nom</label>
+                                    <span class="underline"></span>
+                                </div>
+                                </div>
+                                <div class="col-md-5">
+                                  <div class="custom-input-container">                  
+                                    <input  id="prenom" formControlName="prenom" type="text" required placeholder=" " />
+                                    <label for="prenom" class="floating-placeholder">Prénom</label>
+                                    <span class="underline"></span>
+                                </div>
+                                </div>
+                               
+                                  <div class="row justify-content-center mt-3">
+                                    <div class="col-md-5">
+                                      <div class="custom-input-container">
+                                        <input id="email" formControlName="email" type="text" required placeholder=" " />
+                                        <label for="email" class="floating-placeholder">Email</label>
+                                        <span class="underline"></span>
+                                      </div>
+                                    </div>
+                                  </div>
+                             
+                            </div>
+                            
+                            <button mat-raised-button type="submit" class="btn btn-danger pull-right" >Modifier </button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+          
+
+

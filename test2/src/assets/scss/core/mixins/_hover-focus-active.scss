@@ -1,0 +1,15 @@
+// mixins/hover-focus-active.scss
+
+@mixin hover-focus-active {
+    &:hover {
+        @content;
+    }
+  
+    &:focus {
+        @content;
+    }
+  
+    &.active {
+        @content;
+    }
+  }

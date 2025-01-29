@@ -1,0 +1,93 @@
+<div class="main-content">
+    <div class="container-fluid">
+       
+            <div class="col-md-12">
+                <div class="card"> 
+
+     
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Etudiant</h4>
+                        <p class="card-category">ENSA Tanger</p>
+                    </div>
+                    <div class="card-body">
+                        <form [formGroup]="profForm" (ngSubmit)="onSubmit()">
+                            <div class="row">
+                                <div class="col-md-5">
+                                  <div class="custom-input-container">
+                                    <input  id="nom" formControlName="nom" type="text" required placeholder=" " />
+                                    <label for="nom" class="floating-placeholder">Nom</label>
+                                    <span class="underline"></span>
+                                </div>
+                                </div>
+                                <div class="col-md-5">
+                                  <div class="custom-input-container">                  
+                                    <input  id="prenom" formControlName="prenom" type="text" required placeholder=" " />
+                                    <label for="prenom" class="floating-placeholder">Prénom</label>
+                                    <span class="underline"></span>
+                                </div>
+                                </div>
+                               
+                                  
+                                    <div class="col-md-5">
+                                      <div class="custom-input-container">
+                                        <input id="email" formControlName="email" type="text" required placeholder=" " />
+                                        <label for="email" class="floating-placeholder">Email</label>
+                                        <span class="underline"></span>
+                                      </div>
+                                    </div>
+                                 
+                                  <div class="col-md-5">
+                                    <div class="custom-input-container">
+                                      <input id="cin" formControlName="cin" type="text" required placeholder=" " />
+                                      <label for="cin" class="floating-placeholder">CIN</label>
+                                      <span class="underline"></span>
+                                    </div>
+                                  </div>
+                              
+                               
+                                  <div class="col-md-5">
+                                    <div class="custom-input-container">
+                                      <input id="cne" formControlName="cne" type="text" required placeholder=" " />
+                                      <label for="cne" class="floating-placeholder">CNE</label>
+                                      <span class="underline"></span>
+                                    </div>
+                                  </div>
+                              
+                                
+                                  <div class="col-md-5">
+                                    <div class="custom-input-container">
+                                      <input id="adresse" formControlName="adresse" type="text" required placeholder=" " />
+                                      <label for="adresse" class="floating-placeholder">adresse</label>
+                                      <span class="underline"></span>
+                                    </div>
+                                  </div>
+                               
+                               
+                                  <div class="col-md-5">
+                                    <div class="custom-input-container">
+                                      <input id="numTele" formControlName="numTele" type="text" required placeholder=" " />
+                                      <label for="numTele" class="floating-placeholder">Tele</label>
+                                      <span class="underline"></span>
+                                    </div>
+                                  </div>
+                               
+                              
+                                  <div class="col-md-5">
+                                    <div class="custom-input-container">
+                                      <input id="naissance_date" formControlName="naissance_date" type="date" required placeholder=" " />
+                                      <label for="naissance_date" class="floating-placeholder">Date de naissance</label>
+                                      <span class="underline"></span>
+                                    </div>
+                                  </div>
+                             
+                             
+                            </div>
+                            
+                            <button mat-raised-button type="submit" class="btn btn-danger pull-right" >Créer </button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+          
+
+

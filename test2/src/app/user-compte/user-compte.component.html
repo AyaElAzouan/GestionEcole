@@ -1,0 +1,80 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Mon profile</h4>
+                        <p class="card-category">Spécification pour vous</p>
+                    </div>
+                    <div class="card-body">
+                        <form [formGroup]="UserForm">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="custom-input-container">
+                                        <label for="nom">Nom:</label>
+                                        <input id="nom" formControlName="nom" type="text" required placeholder=" " class="price-input"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="custom-input-container">
+                                        <label for="prenom">Prénom:</label>
+                                        <input id="prenom" formControlName="prenom" type="text" required placeholder=" " class="price-input"/>
+                                    </div>
+                                </div>
+                            </div>
+                
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="custom-input-container">
+                                        <label for="email">Email:</label>
+                                        <input id="email" formControlName="email" type="email" required placeholder=" " class="price-input"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="custom-input-container">
+                                        <label for="adresse">Adresse:</label>
+                                        <input id="adresse" formControlName="adresse" type="text" required placeholder=" " class="price-input"/>
+                                    </div>
+                                </div>
+                            </div>
+                
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="custom-input-container">
+                                        <label for="tel">Téléphone:</label>
+                                        <input id="tel" formControlName="tel" type="tel" required placeholder=" " class="price-input"/>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                
+                            <div class="d-flex justify-content-center">
+                                <button mat-raised-button type="submit" class="btn btn-danger">Valider les modifications</button>
+                            </div>
+                
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="col-md-4">
+                <div class="card card-profile">
+                    <div class="card-avatar">
+                        <a href="javascript:void(0)">
+                          <img id="cardImage" class="img" [src]="'assets/img/tim_80x80.png'" />
+                        </a>
+                    </div>
+                    <div class="card-body">
+                      <h4 class="card-title"id="name">{{ UserForm.get('email')?.value }}</h4>
+                      <h4 class="card-title"id="name">{{ UserForm.get('nom')?.value }} {{ UserForm.get('prenom')?.value }} </h4>
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  
