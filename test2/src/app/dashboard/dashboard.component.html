@@ -55,19 +55,19 @@
                     </div>
                 </div>
             </div>
-        
+
             <!-- Colonne droite : Deuxième et troisième cartes -->
             <div class="col-lg-3 col-md-4 col-sm-12 d-flex flex-column">
                 <!-- Deuxième carte -->
-               
-        
+
+
                 <!-- Troisième carte -->
                 <div class="card card-stats" style="flex: 1;">
                     <div class="card-header card-header-info card-header-icon">
                         <div class="card-icon">
                             <i class="material-icons">cloud</i>
                         </div>
-                        <p class="card-category"> <span class="text-success"><i class="fa fa-long-arrow-up"></i> {{ highestModule?.percentage }}% </span></p> 
+                        <p class="card-category"> <span class="text-success"><i class="fa fa-long-arrow-up"></i> {{ highestModule?.percentage }}% </span></p>
                         <h4 class="card-title">+{{ highestModule?.students }} {{ highestModule?.module }}</h4>
                     </div>
                     <div class="card-footer">
@@ -92,8 +92,8 @@
                 </div>
             </div>
         </div>
-        
-        
+
+
         <div class="row">
             <div class="col-md-4">
                 <div class="card card-chart">
@@ -105,7 +105,7 @@
                             <span class="text-success">
                               <i class="material-icons" style="font-size: 48px;">forward_30</i>
                             </span>
-                            <span style="margin-left: 8px;">200 Étudiants</span>
+                            <span style="margin-left: 8px;">{{ totalEtudiants }} Étudiants</span>
                           </h4>
                     </div>
                     <div class="card-footer">
@@ -156,14 +156,14 @@
                 </div>
             </div>
         </div>
-        
-                    
-       
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
+
     </div>
   </div>
-  
+

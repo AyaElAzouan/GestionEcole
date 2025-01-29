@@ -17,13 +17,13 @@ public class ProfController {
 
     // Récupérer la liste de tous les professeurs
     @GetMapping
-    public List<Professeur> getAllEtudiants() {
+    public List<Professeur> getAllProfesseurs() {
         return profService.findAll();
     }
 
     // Récupérer un Professeur par son ID
     @GetMapping("/{id}")
-    public ResponseEntity<Professeur> getEtudiantById(@PathVariable Long id) {
+    public ResponseEntity<Professeur> getProfesseurById(@PathVariable Long id) {
         Professeur professeur= profService.findById(id);
         if (professeur != null) {
             return ResponseEntity.ok(professeur);
@@ -34,14 +34,14 @@ public class ProfController {
 
     // Ajouter un nouvel prof
     @PostMapping
-    public ResponseEntity<Professeur> createEtudiant(@RequestBody Professeur professeur) {
+    public ResponseEntity<Professeur> createProfesseur(@RequestBody Professeur professeur) {
         profService.save(professeur);
         return ResponseEntity.ok(professeur);
     }
 
     // Mettre à jour un prof existant
     @PutMapping("/{id}")
-    public ResponseEntity<Professeur> updateEtudiant(@PathVariable Long id, @RequestBody Professeur updatedProfesseur) {
+    public ResponseEntity<Professeur> updateProfesseur(@PathVariable Long id, @RequestBody Professeur updatedProfesseur) {
         Professeur existingProf = profService.findById(id);
         if (existingProf != null) {
             updatedProfesseur.setId(id); // S'assurer que l'ID correspond
@@ -54,7 +54,7 @@ public class ProfController {
 
     // Supprimer un étudiant par son ID
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteEtudiant(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteProfesseur(@PathVariable Long id) {
         Professeur existingProf = profService.findById(id);
         if (existingProf != null) {
             profService.deleteById(id);

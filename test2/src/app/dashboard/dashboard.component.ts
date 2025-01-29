@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { MatTooltipModule } from '@angular/material/tooltip'; 
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserModule } from '@angular/platform-browser';
 import * as Chartist from 'chartist';
+import {privateca} from "googleapis/build/src/apis/privateca";
+import {EtudiantService} from "../services/etudiant.service";
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -11,7 +13,8 @@ import * as Chartist from 'chartist';
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent  implements OnInit {
- 
+  totalEtudiants: number = 0;
+
   highestModule: { module: string; students: number; percentage: number } | null = null;
   lowestModule: { module: string; students: number; percentage: number } | null = null;
 
@@ -28,10 +31,11 @@ export class DashboardComponent  implements OnInit {
   maxModule: { module: string; students: number; percentage: number };
   minModule: { module: string; students: number; percentage: number };
 
-  constructor() {
+  constructor(private etudiantService: EtudiantService) {
     this.maxModule = { module: '', students: 0, percentage: 0 };
     this.minModule = { module: '', students: 0, percentage: 0 };
     this.calculatePercentages();
+
   }
 
   getChartWidth(): number {
@@ -41,6 +45,7 @@ export class DashboardComponent  implements OnInit {
   ngOnInit() {
     this.findMaxModule();
     this.findMinModule();
+    this.getTotalEtudiants();
   }
 
   calculatePercentages(): void {
@@ -74,8 +79,17 @@ export class DashboardComponent  implements OnInit {
       this.modulesData[0]
     );
   }
+  getTotalEtudiants(): void {
+    this.etudiantService.getTotalEtudiants().subscribe(
+      (response: number) => {
+        this.totalEtudiants = response;  // Mise à jour de la variable avec la réponse du service
+      },
+      (error) => {
+        console.error('Erreur lors de la récupération du total des étudiants', error);
+      }
+    );
+  }
+}
 
-} 
 
-  
 

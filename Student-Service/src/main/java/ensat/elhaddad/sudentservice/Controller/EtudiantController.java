@@ -62,4 +62,8 @@ public class EtudiantController {
             return ResponseEntity.notFound().build();
         }
     }
+    @GetMapping("/Total")
+    public long getTotalEtudiants(){
+        return etudiantService.getTotalEtudaints();
+    }
 }

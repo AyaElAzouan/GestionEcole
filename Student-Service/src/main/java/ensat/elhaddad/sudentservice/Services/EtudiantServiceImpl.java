@@ -32,6 +32,9 @@ public class EtudiantServiceImpl implements EtudiantService{
     public void deleteById(Long id) {
        etudiantRepository.deleteById(id);
     }
-
+    @Override
+    public  long getTotalEtudaints(){
+       return etudiantRepository.count();
+    }
 
 }
