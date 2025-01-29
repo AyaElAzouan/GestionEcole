@@ -1,0 +1,9 @@
+@mixin plain-hover-focus {
+    &:hover {
+      @content; // Styles à appliquer lors du survol
+    }
+  
+    &:focus {
+      @content; // Styles à appliquer lors du focus
+    }
+  }

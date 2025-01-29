@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!-- Coding By CodingNepal - www.codingnepalweb.com -->
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Glassmorphism Login Form | CodingNepal</title>
+  <link rel="stylesheet" href="login-user.component.css">
+</head>
+<body>
+  <div class="wrapper">
+    <form class="form-group" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <h2>Connexion</h2>
+      <div class="input-field" [class.error]="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)">
+        <input name="email" type="email" formControlName="email" required placeholder="" >
+        <label>Email</label>
+      </div>
+      <div 
+        *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)"
+        class="error-message text-danger"
+        style="font-size: 0.875rem;"
+      >
+        <div *ngIf="loginForm.get('email')?.errors?.['required']"><strong>L'email est requis.</strong></div>
+        <div *ngIf="loginForm.get('email')?.errors?.['email']"><strong>L'email n'est pas valide.</strong></div>
+      </div>
+      
+      <div class="input-field" [class.error]="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)">
+        <input type="password" formControlName="password" required placeholder="">
+        <label>Mot de passe</label>
+      </div>
+      <div *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)" class="error-message text-danger" style="font-size: 0.875rem;">
+        <div *ngIf="loginForm.get('password')?.errors?.['required']"><strong>Le mot de passe est requis.</strong></div>
+        <div *ngIf="loginForm.get('password')?.errors?.['pattern']"><strong>Le mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial.</strong></div>
+    </div>
+        <div class="forget">
+        <a >Mot de passe oublié ?</a>
+      </div>
+      <button type="submit"  >Se connecter</button>
+      <div class="register">
+        <p>Vous n'avez pas encors de compte ? <a href="/register">S'inscrire</a></p> 
+      </div>
+  
+    </form>
+  </div>
+</body>
+</html>

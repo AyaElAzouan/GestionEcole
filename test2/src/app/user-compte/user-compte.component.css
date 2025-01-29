@@ -1,0 +1,87 @@
+.custom-input-container {
+    display: flex; /* Utilise flexbox pour aligner le label et l'input côte à côte */
+    align-items: center; /* Centre verticalement le label et l'input */
+    margin-bottom: 20px;
+}
+
+.custom-input-container label {
+    margin-right: 10px; /* Espacement entre le label et l'input */
+    font-weight: bold; /* Mettre en gras le label */
+    font-size: 1rem; /* Ajuster la taille du texte du label */
+    width: 120px; /* Largeur fixe pour le label, ajustez si nécessaire */
+    text-align: left; /* Aligner le texte du label à gauche pour plus de lisibilité */
+    color: #484545; /* Changer la couleur du texte du label en noir */
+}
+
+
+input {
+    border: none;
+    border-bottom: 1px solid #ccc; /* Ligne initiale */
+    outline: none;
+    padding: 10px 0;
+    width: 100%;
+    background: transparent;
+    color: #333;
+    transition: border-color 0.3s ease;
+}
+
+input:focus {
+    border-bottom: 1px solid #007bff; /* Couleur de la ligne au focus */
+}
+
+.underline {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 100%;
+    background-color: #007bff;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+input:focus ~ .underline,
+input:not(:placeholder-shown) ~ .underline {
+    transform: scaleX(1);
+}
+
+
+
+
+#aboutMe {
+    border-radius: 8px;
+    resize: vertical; /* Permet de redimensionner uniquement en hauteur */
+    padding: 15px;
+    font-size: 1rem;
+}
+.btn-primary {
+    background-color: #b78090;
+    border: none;
+    color: #393939;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+  
+
+
+
+
+
+
+
+
+
+

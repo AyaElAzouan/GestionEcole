@@ -1,0 +1,71 @@
+
+
+<div class="main-content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header card-header-danger">
+              <h4 class="card-title">Table des étudiants</h4>
+              <p class="card-category">Etudants de ENSA Tanger</p>
+            </div>
+            <div class="card-body">
+              <!-- Search Box -->
+              <div class="search-box">
+                <i class="material-icons">search</i>
+                <input
+                  type="text"
+                  [(ngModel)]="filterText"
+                  (input)="onFilter()"
+                  placeholder="Rechercher un étudiant..."
+                  class="form-control"
+                >
+              </div>
+
+              <!-- Table -->
+              <div class="table-responsive">
+                <table class="table">
+                  <thead class="text-primary">
+                    <tr>
+                      <th>CIN</th>
+                      <th>Nom</th>
+                      <th>Prénom</th>
+                      <th>Email</th>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let etudiant of filteredEtudiants">
+                      <td>{{ etudiant.cin }}</td>
+                      <td>{{ etudiant.nom }}</td>
+                      <td>{{ etudiant.prenom }}</td>
+                      <td class="text-primary">{{ etudiant.email }}</td>
+                      <td>
+                        <button type="button" matTooltip="Détails" 
+                                [matTooltipPosition]="'above'" 
+                                class="btn btn-primary btn-link btn-sm btn-just-icon"
+                                (click)="onEdit(etudiant)">
+                          <i class="material-icons" style="font-size: 1.5rem;">edit</i>
+                        </button>
+                      </td>
+                      <td>
+                        <button type="button" matTooltip="Remove" 
+                                [matTooltipPosition]="'above'" 
+                                class="btn btn-danger btn-link btn-sm btn-just-icon"
+                                (click)="onDelete(etudiant.id)">
+                          <i class="material-icons" style="font-size: 1.5rem;">delete</i>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+

@@ -1,0 +1,89 @@
+<div class="main-content">
+    <div class="container-fluid">
+       
+            <div class="col-md-12">
+                <div class="card"> 
+
+     
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Module</h4>
+                        <p class="card-category">ENSA Tanger</p>
+                    </div>
+                    <div class="card-body">
+                        <form [formGroup]="matiereForm" (ngSubmit)="onSubmit()">
+                            <div class="row">
+                                <div class="col-md-5">
+                                  <div class="custom-input-container">
+                                    <input  id="nom" formControlName="nom" type="text" required placeholder=" " />
+                                    <label for="nom" class="floating-placeholder">Nom</label>
+                                    <span class="underline"></span>
+                                </div>
+                                </div>
+                                <div class="col-md-5">
+                                  <div class="custom-input-container">                  
+                                    <input  id="responsable" formControlName="responsable" type="text" required placeholder=" " />
+                                    <label for="responsable" class="floating-placeholder">Responsable</label>
+                                    <span class="underline"></span>
+                                </div>
+                                </div>
+                               
+                                  <div class="row justify-content-center mt-3">
+                                    <div class="col-md-5">
+                                      <div class="custom-input-container">
+                                        <input id="volume_horaire" formControlName="volume_horaire" type="number" required placeholder=" " />
+                                        <label for="volume_horaire" class="floating-placeholder">Volume Horaire</label>
+                                        <span class="underline"></span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="row justify-content-center mt-3">
+                                    <div class="col-md-5">
+                                      <div class="custom-input-container">
+                                        <input id="filière" formControlName="filière" type="text" required placeholder=" " />
+                                        <label for="filière" class="floating-placeholder">Filière</label>
+                                        <span class="underline"></span>
+                                      </div>
+                                    </div>
+                                  </div>
+                             
+                            </div>
+                            
+                           
+                            <div class="clearfix"></div>
+                        </form>
+
+<h4>Liste des étuduants inscrit</h4>
+                        <div class="table-responsive">
+                            <table class="table">
+                              <thead class="text-primary">
+                                <tr>
+                                  <th>ID</th>
+                                  <th>Nom</th>
+                                  <th>Prénom</th>
+                                  <th>Email</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let professor of etudiants">
+                                  <td>{{ professor.id }}</td>
+                                  <td>{{ professor.nom }}</td>
+                                  <td>{{ professor.prenom }}</td>
+                                  <td class="text-primary">{{ professor.email }}</td>
+                                  
+                                  
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+</div>
+
+          
+
+
