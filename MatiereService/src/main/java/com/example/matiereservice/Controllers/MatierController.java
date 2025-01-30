@@ -91,4 +91,12 @@ public class MatierController {
             return ResponseEntity.notFound().build();
         }
     }
+    @GetMapping("/byFiliere/{filiere}")
+    public List<Matiere> getMatiereByFiliere(@PathVariable String filiere) {
+        return matiereService.findByFiliere(filiere);
+    }
+    @GetMapping("/filieres")
+    public List<String> getFilieres() {
+        return matiereService.getDistinctFilieres();
+    }
 }

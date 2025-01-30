@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import * as Chartist from 'chartist';
 import {privateca} from "googleapis/build/src/apis/privateca";
 import {EtudiantService} from "../services/etudiant.service";
+import {MatiereService} from "../services/matiere.service";
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -14,6 +15,7 @@ import {EtudiantService} from "../services/etudiant.service";
 })
 export class DashboardComponent  implements OnInit {
   totalEtudiants: number = 0;
+  totalMatieres:number=0;
 
   highestModule: { module: string; students: number; percentage: number } | null = null;
   lowestModule: { module: string; students: number; percentage: number } | null = null;
@@ -31,7 +33,7 @@ export class DashboardComponent  implements OnInit {
   maxModule: { module: string; students: number; percentage: number };
   minModule: { module: string; students: number; percentage: number };
 
-  constructor(private etudiantService: EtudiantService) {
+  constructor(private etudiantService: EtudiantService,private matiereService:MatiereService) {
     this.maxModule = { module: '', students: 0, percentage: 0 };
     this.minModule = { module: '', students: 0, percentage: 0 };
     this.calculatePercentages();
@@ -46,6 +48,7 @@ export class DashboardComponent  implements OnInit {
     this.findMaxModule();
     this.findMinModule();
     this.getTotalEtudiants();
+    this.getTotalMatieres();
   }
 
   calculatePercentages(): void {
@@ -88,6 +91,17 @@ export class DashboardComponent  implements OnInit {
         console.error('Erreur lors de la récupération du total des étudiants', error);
       }
     );
+  }
+  getTotalMatieres():void{
+    this.matiereService.getTotaMatieres().subscribe(
+      (response:number)=>{
+        this.totalMatieres=response;
+
+      }, (error)=>{
+        console.error('Erreur lors de la récupération du total des matières',error);
+      }
+    );
+
   }
 }
 

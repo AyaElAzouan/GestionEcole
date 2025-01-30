@@ -100,4 +100,8 @@ export class DetailEtuComponent {
       data: { idT: this.idT }
     });
   }
+  onCancel(): void {
+    this.etuForm.reset();
+    this.router.navigate(['/gestion-etu'])
+  }
 }

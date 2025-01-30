@@ -39,6 +39,11 @@ public class MatiereServiceImpl implements MatiereService{
     public long getTotalMatieres() {
         return matiereRepository.count();
     }
-
-
+    @Override
+    public List<Matiere>findByFiliere(String filiere) {
+        return matiereRepository.findByFiliere(filiere);
+    }
+    public List<String> getDistinctFilieres() {
+        return matiereRepository.findDistinctFilieres();
+    }
 }

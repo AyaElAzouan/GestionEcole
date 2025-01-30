@@ -1,76 +1,103 @@
-import { Component, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MatTooltipModule } from '@angular/material/tooltip'; 
-import { ActivatedRoute, Router } from '@angular/router';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { Router } from '@angular/router';
 import { Matiere } from '../../models/matière.model';
+import { MatiereService } from "../../services/matiere.service";
+import {ProfesseurService} from "../../services/professeur.service";
+import {Prof} from "../../models/Prof.model";
+import {Observable} from "rxjs";
+
 @Component({
   selector: 'app-gestion-matiere',
   standalone: true,
-  imports: [CommonModule,MatTooltipModule,FormsModule],
+  imports: [CommonModule, MatTooltipModule, FormsModule],
   templateUrl: './gestion-matiere.component.html',
-  styleUrl: './gestion-matiere.component.css'
+  styleUrls: ['./gestion-matiere.component.css']
 })
-export class GestionMatiereComponent {
-
- constructor(private router: Router) {
-    this.filterMatieres();
-  }
-
-  
-
-  
-  ngOnInit(): void {
-
-  }
-
-  
-  
-
-  
-
-//matiere parameters
-  matieres: Matiere[] = [
-    { id: 1, nom: 'Maths pour l ingénieur', responsable: 'Dr. Ahmed', volume_horaire: 40, filière:'GINF1' },
-    { id: 2, nom: 'Electronique', responsable: 'Prof. Houda', volume_horaire: 35, filière:'GINF1' },
-    { id: 3, nom: 'Computer Science', responsable: 'Dr. Alami', volume_horaire: 45, filière:'GINF1' },
-    { id: 4, nom: 'Programmation', responsable: 'Prof. Drissi', volume_horaire: 30 , filière:'GINF1'},
-    { id: 5, nom: 'Bases de données & Réseaux', responsable: 'Dr. Badir', volume_horaire: 38, filière:'GINF1' },
-    { id: 6, nom: 'Signal', responsable: 'Prof. Massou', volume_horaire: 28,filière: 'GINF1'},
-
-    { id: 1, nom: 'Programmation Orientée Objet & XMLr', responsable: 'Dr. Ahmed', volume_horaire: 40, filière:'GINF2' },
-    { id: 2, nom: 'Qualité & approche processus', responsable: 'Prof. Houda', volume_horaire: 35, filière:'GINF2' },
-    { id: 3, nom: 'Modélisation orientée objet et IHM', responsable: 'Dr. Alami', volume_horaire: 45, filière:'GINF2' },
-    { id: 4, nom: 'Bases de données avancées I', responsable: 'Prof. Drissi', volume_horaire: 30 , filière:'GINF2'},
-    
-
-
-    { id: 1, nom: 'AI avancé', responsable: 'Dr. Ahmed', volume_horaire: 40, filière:'GINF3' },
-    { id: 2, nom: 'Data WAREHOUSE', responsable: 'Prof. Badir', volume_horaire: 35, filière:'GINF3' },
-    { id: 3, nom: 'Data Mining', responsable: 'Dr. Badir', volume_horaire: 45, filière:'GINF3' },
-    { id: 4, nom: 'Programmation', responsable: 'Prof. Drissi', volume_horaire: 30 , filière:'GINF3'},
-    { id: 5, nom: 'E-commerce', responsable: 'Dr. xxx', volume_horaire: 38, filière:'GINF3' },
-    { id: 6, nom: 'dev Mobile', responsable: 'Prof. AZIYAT', volume_horaire: 28,filière: 'GINF3'},
-  ];
-
-  filieres = ['GINF1', 'GINF2', 'GINF3'];
-  selectedFiliere = 'GINF1';
+export class GestionMatiereComponent implements OnInit {
+  listProf: Prof[] = []; // Liste des professeurs
+  matieres: Matiere[] = [];
+  filieres: string[] = [];
+  selectedFiliere: string = ''; // Filière sélectionnée
   filteredMatieres: Matiere[] = [];
 
- 
+  constructor(private router: Router, private matiereService: MatiereService,
+              private profService:ProfesseurService) {}
+
+  ngOnInit(): void {
+    this.chargerFilieres();
+    this.chargerMatieres();
+    this.chargerProfs();
+  }
+
+  chargerMatieres(): void {
+    this.matiereService.getMatieres().subscribe(
+      (data: Matiere[]) => {
+        this.matieres = data || []; // Évite les erreurs si data est null
+        this.filteredMatieres = [...this.matieres]; // Copie pour le filtrage
+      },
+      (error) => {
+        console.error(' Erreur lors du chargement des matières:', error);
+      }
+    );
+  }
+
+  chargerFilieres(): void {
+    this.matiereService.getMatieres().subscribe(
+      (data) => {
+        // Extraire les filières uniques
+        this.filieres =  ["Afficher tout", ...new Set(data.map(m => m.filiere))];
+        console.log('Filières après traitement :', this.filieres);
+      },
+      (error) => {
+        console.error('Erreur lors du chargement des filières', error);
+      }
+    );
+  }
+
+  chargerProfs(): void {
+    this.profService.getProfs().subscribe(
+      (data: Prof[]) => {
+        this.listProf = data || []; // Évite une erreur si data est null
+      },
+      (error) => {
+        console.error(' Erreur lors du chargement des professeurs :', error);
+      }
+    );
+  }
 
   selectFiliere(filiere: string): void {
-    this.selectedFiliere = filiere;
-    this.filterMatieres();
+    if (filiere === "Afficher tout") {
+      this.selectedFiliere = '';
+      this.filteredMatieres = this.matieres; // Afficher toutes les matières
+    } else {
+      this.selectedFiliere = filiere;
+      this.filterMatieres(); // Filtrer les matières par filière
+    }
   }
 
   filterMatieres(): void {
-    this.filteredMatieres = this.matieres.filter(m => m.filière === this.selectedFiliere);
+    this.filteredMatieres = this.matieres.filter(m => m.filiere === this.selectedFiliere);
   }
 
   onEdit2(matiere: Matiere): void {
     this.router.navigate(['/detail-matiere', matiere.id]);
   }
+  onDelete(id: number): void {
+    if (confirm('Êtes-vous sûr de vouloir supprimer cette matière?')) {
+      this.matiereService.deleteMatiere(id).subscribe(() => {
+        // Recharger les matières après suppression
+        this.chargerMatieres();
+      });
+    }
+  }
+  openAddMatiereForm():void{
+    this.router.navigate(['/create-matiere']);
+  }
+  getProfName(profId: number): Observable<Prof> {
+    return this.profService.getProfById(profId);
+  }
 
 }
-

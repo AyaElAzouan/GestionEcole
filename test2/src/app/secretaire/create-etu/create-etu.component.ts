@@ -67,6 +67,10 @@ export class CreateEtuComponent {
       console.log('Formulaire invalide');
     }
   }
+  onCancel(): void {
+    this.etudiantForm.reset();
+    this.router.navigate(['/gestion-etu']);
+  }
 
 
 }

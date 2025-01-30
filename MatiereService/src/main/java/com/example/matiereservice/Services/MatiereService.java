@@ -12,5 +12,7 @@ public interface MatiereService {
     void deleteById(Long id);
     List<Matiere> findByProf(Long prof_id);
     long getTotalMatieres();
+    List<Matiere> findByFiliere(String filiere);
+    List<String> getDistinctFilieres();
 
 }
