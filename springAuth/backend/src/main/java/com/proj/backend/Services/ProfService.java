@@ -9,4 +9,5 @@ public interface ProfService {
     Professeur findById(Long id);
     void save(Professeur professeur);
     void deleteById(Long id);
+    Professeur addMatiereToProfesseur(Long profId, Long matiereId);
 }

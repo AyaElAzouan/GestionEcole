@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProfServiceImpl implements ProfService{
@@ -36,6 +37,15 @@ public class ProfServiceImpl implements ProfService{
     public void deleteById(Long id) {
         profRepository.deleteById(id);
     }
-
-
+    @Override
+    public Professeur addMatiereToProfesseur(Long profId, Long matiereId) {
+        Optional<Professeur> professeurOpt = profRepository.findById(profId);
+        if (professeurOpt.isPresent()) {
+            Professeur professeur = professeurOpt.get();
+            // Ajoute l'ID de la matière à la liste des matières du professeur
+            professeur.getMatieres().add(matiereId);
+            return profRepository.save(professeur);
+        }
+        throw new RuntimeException("Professeur non trouvé");
+    }
 }

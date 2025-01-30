@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,6 +25,8 @@ public class Professeur {
 
     private String adresse;
     private String numTele;
+    @ElementCollection
+    private List<Long> matieres;
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private User user;

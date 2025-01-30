@@ -4,14 +4,18 @@ import com.example.matiereservice.Entities.Matiere;
 import com.example.matiereservice.Repositories.MatiereRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Optional;
+
 
 @Service
 public class MatiereServiceImpl implements MatiereService{
     @Autowired
     private MatiereRepository matiereRepository;
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Override
     public List<Matiere> findAll() {
@@ -59,6 +63,20 @@ public class MatiereServiceImpl implements MatiereService{
         } else {
             throw new RuntimeException("Matière non trouvée avec ID : " + matiereId);
         }
+    }
+    @Override
+    public Matiere assignProfesseurToMatiere(Long matiereId, Long profId) {
+        Matiere matiere = matiereRepository.findById(matiereId).orElseThrow(() -> new RuntimeException("Matière non trouvée"));
+
+        // Assigner l'ID professeur à la matière
+        matiere.setProfId(profId);
+        matiereRepository.save(matiere);
+
+        // Envoi de la requête HTTP pour ajouter l'ID matière au professeur
+        String url = "http://localhost:8081/api/professeurs/" + profId + "/ajouterMatiere/" + matiereId;
+        restTemplate.put(url, null);
+
+        return matiere;
     }
 
 

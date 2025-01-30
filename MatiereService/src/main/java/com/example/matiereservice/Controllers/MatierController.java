@@ -3,6 +3,7 @@ package com.example.matiereservice.Controllers;
 import com.example.matiereservice.Entities.Matiere;
 import com.example.matiereservice.Services.MatiereService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -104,5 +105,10 @@ public class MatierController {
     @GetMapping("/filieres")
     public List<String> getFilieres() {
         return matiereService.getDistinctFilieres();
+    }
+    @PutMapping("/{matiereId}/assignerProfesseur/{profId}")
+    public ResponseEntity<Matiere> assignProfesseurToMatiere(@PathVariable Long matiereId, @PathVariable Long profId) {
+        Matiere updatedMatiere = matiereService.assignProfesseurToMatiere(matiereId, profId);
+        return new ResponseEntity<>(updatedMatiere, HttpStatus.OK);
     }
 }

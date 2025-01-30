@@ -5,6 +5,7 @@ package com.proj.backend.Controllers;
 import com.proj.backend.Entities.Professeur;
 import com.proj.backend.Services.ProfService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -58,5 +59,11 @@ public class ProfController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+    // Ajouter un ID de matière à un professeur
+    @PutMapping("/{profId}/ajouterMatiere/{matiereId}")
+    public ResponseEntity<Professeur> addMatiereToProfesseur(@PathVariable Long profId, @PathVariable Long matiereId) {
+        Professeur updatedProfesseur = profService.addMatiereToProfesseur(profId, matiereId);
+        return new ResponseEntity<>(updatedProfesseur, HttpStatus.OK);
     }
 }
