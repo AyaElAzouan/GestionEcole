@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -26,5 +28,7 @@ public class Etudiant {
     private String numTele;
     private Date dateNAissance;
 
+    @ElementCollection
+    private List<Long> matieres;
 
 }

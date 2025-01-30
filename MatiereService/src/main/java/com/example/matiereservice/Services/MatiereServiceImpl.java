@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class MatiereServiceImpl implements MatiereService{
     @Autowired
@@ -38,6 +40,24 @@ public class MatiereServiceImpl implements MatiereService{
     // Méthode pour obtenir le nombre total de matières
     public long getTotalMatieres() {
         return matiereRepository.count();
+    }
+    @Override
+    public Matiere ajouterEtudiant(Long matiereId, Long etudiantId) {
+        Optional<Matiere> matiereOpt = matiereRepository.findById(matiereId);
+
+        if (matiereOpt.isPresent()) {
+            Matiere matiere = matiereOpt.get();
+
+            // Vérifier si l'étudiant n'est pas déjà inscrit
+            if (!matiere.getEtudiants().contains(etudiantId)) {
+                matiere.getEtudiants().add(etudiantId);
+                matiereRepository.save(matiere); // Sauvegarde des modifications
+            }
+
+            return matiere;
+        } else {
+            throw new RuntimeException("Matière non trouvée avec ID : " + matiereId);
+        }
     }
 
 

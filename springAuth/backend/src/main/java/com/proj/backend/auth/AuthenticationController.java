@@ -33,6 +33,7 @@ public class AuthenticationController {
     public ResponseEntity<AuthenticationResponse> authenticate(
             @RequestBody AuthenticationRequest request
     ){
+        System.out.println("hi");
         return ResponseEntity.ok(authenticationSercvice.authenticate(request));
     }
     @PostMapping("/registerProf")

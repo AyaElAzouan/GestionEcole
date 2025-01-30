@@ -1,97 +1,106 @@
 import { Injectable } from '@angular/core';
-import { HttpClient ,HttpParams} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { UserLogin } from '../models/user.model';
-import { catchError, map,tap } from 'rxjs/operators';
-import { inject } from '@angular/core';
+import { catchError, map, tap } from 'rxjs/operators';
 import { jwtDecode } from 'jwt-decode';
+import { throwError } from 'rxjs';
+
+// Modèle pour l'utilisateur
+export interface UserLogin {
+  email: string;
+  password: string;
+}
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
-  private apiUrl = 'http://localhost:8080/api/auth'; // L'URL de l'API
+  private apiUrl = 'http://localhost:8080/BACKEND/api/auth'; // URL de l'API backend
 
   constructor(private http: HttpClient) {}
 
-  
-  login(data: any) {
+  // Méthode pour se connecter
+  login(credentials: { Email: string; Password: string }): Observable<any> {
     const loginUrl = `${this.apiUrl}/authenticate`;
-  
-    return this.http.post<any>(loginUrl, data).pipe(
-      map(response => {
-        console.log("Réponse de l'API:", response);
-        if (response && response.token) {  // Vérifiez si le token est présent dans la réponse
-          localStorage.setItem('JwtToken', response.token);  // Sauvegardez le token dans localStorage
-          const jwtToken = localStorage.getItem('JwtToken');
-          if (jwtToken) {
-            console.log('Token JWT:', jwtToken);
-          } else {
-            console.log('Aucun token trouvé');
-          }
+    const headers = { 'Content-Type': 'application/json' };
+
+    return this.http.post<any>(loginUrl, credentials, { headers }).pipe(
+      map((response) => {
+        console.log('Login successful:', response);
+        if (response && response.token) {
+          console.log(response.token)
+          localStorage.setItem('JwtToken', response.token);
+          console.log(localStorage.getItem('JwtToken'));
         }
         return response;
       }),
-      catchError(error => {
-        console.error("Erreur d'authentification:", error);
-        return of(error);  // Retourne l'erreur sous forme d'observable
+      catchError((error) => {
+        console.error('Login failed:', error);
+        return throwError(() => new Error('Erreur lors de la connexion'));
       })
     );
   }
-  
-  
+ 
+
+  // Méthode pour se déconnecter
   logout(): void {
     localStorage.removeItem('JwtToken');
+    console.log('Utilisateur déconnecté, token supprimé.');
   }
 
-  getToken(): string {
-    return localStorage.getItem('JwtToken') || 'null';
+  // Méthode pour récupérer le token
+  getToken(): string | null {
+    return localStorage.getItem('JwtToken');
   }
 
+  // Méthode pour vérifier si l'utilisateur est authentifié
   isAuthenticated(): boolean {
-    return this.getToken() != null;
+    return this.getToken() !== null;
   }
 
-
-
+  // Méthode pour récupérer l'utilisateur actuel
   currentUser(): UserLogin | null {
-    if (this.getToken()) {
-      const tokenPayload: any = jwtDecode(this.getToken());
+    const token = this.getToken();
+    if (token) {
+      const tokenPayload: any = jwtDecode(token);
       if (tokenPayload) {
         const user: UserLogin = {
-          email: tokenPayload.sub,
-          password: '',
+          email: tokenPayload.sub, // "sub" est généralement l'email ou l'identifiant de l'utilisateur
+          password: '', // Le mot de passe n'est pas stocké dans le token
         };
         return user;
       }
     }
     return null;
   }
+
+  // Méthode pour récupérer le rôle de l'utilisateur actuel
   currentUserRole(): string | null {
     const token = this.getToken();
-
     if (token) {
       const tokenPayload: any = jwtDecode(token);
-
-      
       if (tokenPayload.role && tokenPayload.role.length > 0) {
-        return tokenPayload.role[0].authority; 
+        return tokenPayload.role[0].authority; // Supposons que le rôle est stocké dans un tableau "role"
       }
     }
-
     return null;
   }
 
-
-  autoLogout(dateExpiration: number): void {
+  // Méthode pour déconnecter automatiquement après expiration du token
+  autoLogout(expirationTime: number): void {
     setTimeout(() => {
       this.logout();
-    }, dateExpiration);
+      console.log('Déconnexion automatique après expiration du token.');
+    }, expirationTime);
   }
 
+  // Méthode pour récupérer les emails des professeurs (exemple)
   getProfessorEmails(): Observable<string[]> {
-    return this.http.get<string[]>(`${this.apiUrl}/authenticate/professors/emails`);
+    return this.http.get<string[]>(`${this.apiUrl}/professors/emails`).pipe(
+      catchError((error) => {
+        console.error('Erreur lors de la récupération des emails:', error);
+        return of([]); // Retourne un tableau vide en cas d'erreur
+      })
+    );
   }
-
 }

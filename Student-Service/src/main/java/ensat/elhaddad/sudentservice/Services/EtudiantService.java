@@ -11,6 +11,7 @@ public interface EtudiantService {
     Etudiant findById(Long id);
     void save(Etudiant etudiant);
     void deleteById(Long id);
+    Etudiant ajouterMatiere(Long etudiantId, Long matiereId);
 
 
 }

@@ -12,5 +12,6 @@ public interface MatiereService {
     void deleteById(Long id);
     List<Matiere> findByProf(Long prof_id);
     long getTotalMatieres();
+    Matiere ajouterEtudiant(Long matiereId, Long etudiantId);
 
 }

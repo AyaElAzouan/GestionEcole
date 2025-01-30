@@ -32,6 +32,24 @@ public class EtudiantServiceImpl implements EtudiantService{
     public void deleteById(Long id) {
        etudiantRepository.deleteById(id);
     }
+    @Override
+    public Etudiant ajouterMatiere(Long etudiantId, Long matiereId) {
+        Optional<Etudiant> etudiantOpt = etudiantRepository.findById(etudiantId);
+
+        if (etudiantOpt.isPresent()) {
+            Etudiant etudiant = etudiantOpt.get();
+
+            // Vérifier si la matière est déjà présente
+            if (!etudiant.getMatieres().contains(matiereId)) {
+                etudiant.getMatieres().add(matiereId);
+                etudiantRepository.save(etudiant); // Sauvegarde des modifications
+            }
+
+            return etudiant;
+        } else {
+            throw new RuntimeException("Étudiant non trouvé avec ID : " + etudiantId);
+        }
+    }
 
 
 }

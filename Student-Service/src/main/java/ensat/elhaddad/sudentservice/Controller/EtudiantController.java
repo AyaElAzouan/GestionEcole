@@ -62,4 +62,10 @@ public class EtudiantController {
             return ResponseEntity.notFound().build();
         }
     }
+    @PostMapping("/{etudiantId}/matieres/{matiereId}")
+    public ResponseEntity<Etudiant> ajouterMatiere(@PathVariable Long etudiantId, @PathVariable Long matiereId) {
+        Etudiant etudiant = etudiantService.ajouterMatiere(etudiantId, matiereId);
+        return ResponseEntity.ok(etudiant);
+    }
+
 }

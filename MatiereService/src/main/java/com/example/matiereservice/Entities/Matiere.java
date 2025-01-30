@@ -3,6 +3,8 @@ package com.example.matiereservice.Entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -15,5 +17,7 @@ public class Matiere {
     private String nom;
     private int nbrHeure;
     private Long profId;
+    @ElementCollection
+    private List<Long> etudiants;
 
 }
