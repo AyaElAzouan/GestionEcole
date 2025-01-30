@@ -1,10 +1,10 @@
 <div class="main-content">
     <div class="container-fluid">
-       
-            <div class="col-md-12">
-                <div class="card"> 
 
-     
+            <div class="col-md-12">
+                <div class="card">
+
+
                     <div class="card-header card-header-danger">
                         <h4 class="card-title">Module</h4>
                         <p class="card-category">ENSA Tanger</p>
@@ -19,11 +19,11 @@
                                     <span class="underline"></span>
                                 </div>
                                 </div>
-                              
+
                                 <div class="select-wrapper">
-               
-                                  <select 
-                                    id="responsable" 
+
+                                  <select
+                                    id="responsable"
                                     formControlName="responsable"
                                   >
                                     <option value="">Responsable </option>
@@ -32,12 +32,12 @@
                                     </option>
                                   </select>
                                 </div>
-                               
+
                                   <div class="row justify-content-center mt-3">
                                     <div class="col-md-5">
                                       <div class="custom-input-container">
-                                        <input id="volume_horaire" formControlName="volume_horaire" type="number" required placeholder=" " />
-                                        <label for="volume_horaire" class="floating-placeholder">Volume Horaire</label>
+                                        <input id="nbrHeure" formControlName="nbrHeure" type="number" required placeholder=" " />
+                                        <label for="nbrHeure" class="floating-placeholder">Volume Horaire</label>
                                         <span class="underline"></span>
                                       </div>
                                     </div>
@@ -45,20 +45,22 @@
                                   <div class="row justify-content-center mt-3">
                                     <div class="col-md-5">
                                       <div class="custom-input-container">
-                                        <input id="filière" formControlName="filière" type="text" required placeholder=" " />
-                                        <label for="filière" class="floating-placeholder">Filière</label>
+                                        <input id="filiere" formControlName="filiere" type="text" required placeholder=" " />
+                                        <label for="filiere" class="floating-placeholder">Filière</label>
                                         <span class="underline"></span>
                                       </div>
                                     </div>
                                   </div>
-                             
+
                             </div>
-                            
+                          <div class="d-flex justify-content-end">
                             <button mat-raised-button type="submit" class="btn btn-danger pull-right" >Modifier </button>
+                            <button type="button" class="btn btn-secondary ml-2" (click)="onCancel()">Annuler</button>
+                          </div>
                             <div class="clearfix"></div>
                         </form>
                     </div>
                 </div>
-          
+
 
 

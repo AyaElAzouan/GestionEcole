@@ -16,6 +16,7 @@ public class Matiere {
     private Long id;
     private String nom;
     private int nbrHeure;
+    private String filiere;
     private Long profId;
     @ElementCollection
     private List<Long> etudiants;

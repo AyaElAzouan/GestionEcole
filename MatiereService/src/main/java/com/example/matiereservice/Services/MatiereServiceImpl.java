@@ -42,6 +42,7 @@ public class MatiereServiceImpl implements MatiereService{
         return matiereRepository.count();
     }
     @Override
+
     public Matiere ajouterEtudiant(Long matiereId, Long etudiantId) {
         Optional<Matiere> matiereOpt = matiereRepository.findById(matiereId);
 
@@ -60,5 +61,13 @@ public class MatiereServiceImpl implements MatiereService{
         }
     }
 
+
+
+    public List<Matiere>findByFiliere(String filiere) {
+        return matiereRepository.findByFiliere(filiere);
+    }
+    public List<String> getDistinctFilieres() {
+        return matiereRepository.findDistinctFilieres();
+    }
 
 }

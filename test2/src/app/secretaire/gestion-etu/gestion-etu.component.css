@@ -6,7 +6,7 @@
     max-width: 300px;
     margin-left: 400px;
   }
- 
+
 
   .material-icons {
     position: absolute;
@@ -49,3 +49,17 @@
   .btn-danger i {
     color: #f44336;
   }
+
+
+
+.add-student-btn i {
+  color: white; /* Force l'icône en blanc */
+
+  margin-top: 1px;
+  margin-right: 10px;
+  font-size: 20px;
+}
+
+.add-student-btn:hover {
+  background-color:  #9c27b0; /* Bleu foncé */
+}

@@ -77,9 +77,9 @@ input:not(:placeholder-shown) ~ .floating-placeholder {
     justify-content: center;
     margin-top: 1rem;
   }
- 
-  
-  
+
+
+
   .custom-input-container {
     position: relative;
 }
@@ -98,38 +98,38 @@ input:not(:placeholder-shown) ~ .floating-placeholder {
     background: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
-  
+
   .headert {
     display: grid;
     grid-template-columns: 120px repeat(6, 1fr);
     background: #f8f9fa;
     border-bottom: 2px solid #dee2e6;
-    
+
   }
-  
+
   .time-headert, .day-headert {
     padding: 12px;
     text-align: center;
     font-weight: bold;
     color: #495057;
-    
+
   }
-  
+
   .time-slots {
     display: flex;
     flex-direction: column;
   }
-  
+
   .rowt {
     display: grid;
     grid-template-columns: 120px repeat(6, 1fr);
     border-bottom: 1px solid #dee2e6;
   }
-  
+
   .rowt:last-child {
     border-bottom: none;
   }
-  
+
   .time-cell {
     padding: 5px;
     border-right: 1px solid #dee2e6;
@@ -141,7 +141,7 @@ input:not(:placeholder-shown) ~ .floating-placeholder {
     justify-content: center;
     width: 100%;
   }
-  
+
   .slot {
     padding: 5px;
     border-right: 1px solid #dee2e6;
@@ -151,36 +151,36 @@ input:not(:placeholder-shown) ~ .floating-placeholder {
     justify-content: center;
     min-height: 40px;
   }
-  
+
   .slot:last-child {
     border-right: none;
   }
-  
+
   .break {
     background-color: #fff3cd;
     color: #856404;
     min-height: 40px;
   }
-  
+
   .class-period {
     min-height: 120px;
     background-color: #e9ecef;
-    
+
   }
-  
+
   @media (max-width: 768px) {
     .timetable {
       font-size: 0.75rem;
     }
-    
+
     .time-cell, .slot {
       padding: 2px 4px;
     }
-    
+
     .headert {
       grid-template-columns: 50px repeat(6, minmax(50px, 1fr));
     }
-    
+
     .rowt {
       grid-template-columns: 50px repeat(6, minmax(50px, 1fr));
     }
@@ -208,22 +208,29 @@ input:not(:placeholder-shown) ~ .floating-placeholder {
   select:hover {
     border-color: #cbd5e1; /* Couleur de bordure plus claire */
   }
-  
+
   /* Style au focus */
   select:focus {
     outline: none; /* Supprime le contour par défaut */
     border-color: #3b82f6; /* Bordure bleue */
   }
-  
+
   /* État désactivé */
   select:disabled {
     background-color: #f3f4f6; /* Fond gris clair */
     cursor: not-allowed; /* Curseur interdit */
   }
-  
+
   /* Styles des options */
   option {
     padding: 0.5rem; /* Espacement intérieur des options */
     font-size: 0.875rem; /* Taille de la police */
   }
-  
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+}

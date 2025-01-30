@@ -1,93 +1,111 @@
 <div class="main-content">
-    <div class="container-fluid">
-       
-            <div class="col-md-12">
-                <div class="card"> 
-
-     
-                    <div class="card-header card-header-danger">
-                        <h4 class="card-title">Etudiant</h4>
-                        <p class="card-category">ENSA Tanger</p>
-                    </div>
-                    <div class="card-body">
-                        <form [formGroup]="profForm" (ngSubmit)="onSubmit()">
-                            <div class="row">
-                                <div class="col-md-5">
-                                  <div class="custom-input-container">
-                                    <input  id="nom" formControlName="nom" type="text" required placeholder=" " />
-                                    <label for="nom" class="floating-placeholder">Nom</label>
-                                    <span class="underline"></span>
-                                </div>
-                                </div>
-                                <div class="col-md-5">
-                                  <div class="custom-input-container">                  
-                                    <input  id="prenom" formControlName="prenom" type="text" required placeholder=" " />
-                                    <label for="prenom" class="floating-placeholder">Prénom</label>
-                                    <span class="underline"></span>
-                                </div>
-                                </div>
-                               
-                                  
-                                    <div class="col-md-5">
-                                      <div class="custom-input-container">
-                                        <input id="email" formControlName="email" type="text" required placeholder=" " />
-                                        <label for="email" class="floating-placeholder">Email</label>
-                                        <span class="underline"></span>
-                                      </div>
-                                    </div>
-                                 
-                                  <div class="col-md-5">
-                                    <div class="custom-input-container">
-                                      <input id="cin" formControlName="cin" type="text" required placeholder=" " />
-                                      <label for="cin" class="floating-placeholder">CIN</label>
-                                      <span class="underline"></span>
-                                    </div>
-                                  </div>
-                              
-                               
-                                  <div class="col-md-5">
-                                    <div class="custom-input-container">
-                                      <input id="cne" formControlName="cne" type="text" required placeholder=" " />
-                                      <label for="cne" class="floating-placeholder">CNE</label>
-                                      <span class="underline"></span>
-                                    </div>
-                                  </div>
-                              
-                                
-                                  <div class="col-md-5">
-                                    <div class="custom-input-container">
-                                      <input id="adresse" formControlName="adresse" type="text" required placeholder=" " />
-                                      <label for="adresse" class="floating-placeholder">adresse</label>
-                                      <span class="underline"></span>
-                                    </div>
-                                  </div>
-                               
-                               
-                                  <div class="col-md-5">
-                                    <div class="custom-input-container">
-                                      <input id="numTele" formControlName="numTele" type="text" required placeholder=" " />
-                                      <label for="numTele" class="floating-placeholder">Tele</label>
-                                      <span class="underline"></span>
-                                    </div>
-                                  </div>
-                               
-                              
-                                  <div class="col-md-5">
-                                    <div class="custom-input-container">
-                                      <input id="naissance_date" formControlName="naissance_date" type="date" required placeholder=" " />
-                                      <label for="naissance_date" class="floating-placeholder">Date de naissance</label>
-                                      <span class="underline"></span>
-                                    </div>
-                                  </div>
-                             
-                             
-                            </div>
-                            
-                            <button mat-raised-button type="submit" class="btn btn-danger pull-right" >Créer </button>
-                            <div class="clearfix"></div>
-                        </form>
-                    </div>
+  <div class="container-fluid">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header card-header-danger">
+          <h4 class="card-title">Etudiant</h4>
+          <p class="card-category">ENSA Tanger</p>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="etudiantForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+              <div class="col-md-5">
+                <div class="custom-input-container">
+                  <input id="nom" formControlName="nom" type="text" required placeholder=" " />
+                  <label for="nom" class="floating-placeholder">Nom</label>
+                  <span class="underline"></span>
                 </div>
-          
+                <div *ngIf="etudiantForm.controls['nom'].invalid && etudiantForm.controls['nom'].touched" class="error-message">
+                  Nom est requis.
+                </div>
+              </div>
 
+              <div class="col-md-5">
+                <div class="custom-input-container">
+                  <input id="prenom" formControlName="prenom" type="text" required placeholder=" " />
+                  <label for="prenom" class="floating-placeholder">Prénom</label>
+                  <span class="underline"></span>
+                </div>
+                <div *ngIf="etudiantForm.controls['prenom'].invalid && etudiantForm.controls['prenom'].touched" class="error-message">
+                  Prénom est requis.
+                </div>
+              </div>
 
+              <div class="col-md-5">
+                <div class="custom-input-container">
+                  <input id="email" formControlName="email" type="email" required placeholder=" " />
+                  <label for="email" class="floating-placeholder">Email</label>
+                  <span class="underline"></span>
+                </div>
+                <div *ngIf="etudiantForm.controls['email'].invalid && etudiantForm.controls['email'].touched" class="error-message">
+                  Email est requis et doit être valide.
+                </div>
+              </div>
+
+              <div class="col-md-5">
+                <div class="custom-input-container">
+                  <input id="cin" formControlName="cin" type="text" required placeholder=" " />
+                  <label for="cin" class="floating-placeholder">CIN</label>
+                  <span class="underline"></span>
+                </div>
+                <div *ngIf="etudiantForm.controls['cin'].invalid && etudiantForm.controls['cin'].touched" class="error-message">
+                  CIN est requis.
+                </div>
+              </div>
+
+              <div class="col-md-5">
+                <div class="custom-input-container">
+                  <input id="cne" formControlName="cne" type="text" required placeholder=" " />
+                  <label for="cne" class="floating-placeholder">CNE</label>
+                  <span class="underline"></span>
+                </div>
+                <div *ngIf="etudiantForm.controls['cne'].invalid && etudiantForm.controls['cne'].touched" class="error-message">
+                  CNE est requis.
+                </div>
+              </div>
+
+              <div class="col-md-5">
+                <div class="custom-input-container">
+                  <input id="adresse" formControlName="adresse" type="text" required placeholder=" " />
+                  <label for="adresse" class="floating-placeholder">Adresse</label>
+                  <span class="underline"></span>
+                </div>
+                <div *ngIf="etudiantForm.controls['adresse'].invalid && etudiantForm.controls['adresse'].touched" class="error-message">
+                  Adresse est requise.
+                </div>
+              </div>
+
+              <div class="col-md-5">
+                <div class="custom-input-container">
+                  <input id="numTele" formControlName="numTele" type="text" required placeholder=" " />
+                  <label for="numTele" class="floating-placeholder">Téléphone</label>
+                  <span class="underline"></span>
+                </div>
+                <div *ngIf="etudiantForm.controls['numTele'].invalid && etudiantForm.controls['numTele'].touched" class="error-message">
+                  Téléphone est requis.
+                </div>
+              </div>
+
+              <div class="col-md-5">
+                <div class="custom-input-container">
+                  <input id="dateNAissance" formControlName="dateNAissance" type="date" required placeholder=" " />
+                  <label for="dateNAissance" class="floating-placeholder">Date de naissance</label>
+                  <span class="underline"></span>
+                </div>
+
+                <div *ngIf="etudiantForm.controls['dateNAissance'].invalid && etudiantForm.controls['dateNAissance'].touched" class="error-message">
+                  Date de naissance est requise.
+                </div>
+              </div>
+            </div>
+            <div class="d-flex justify-content-end">
+            <button mat-raised-button type="submit" class="btn btn-danger pull-right" [disabled]="etudiantForm.invalid" >Créer</button>
+            <button type="button" class="btn btn-secondary ml-2" (click)="onCancel()">Annuler</button>
+            </div>
+            <div class="clearfix"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,92 +1,98 @@
 import { Component, Inject, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators ,ReactiveFormsModule} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../../dialog/dialog.component';
-
+import { Etudiant } from "../../models/etudiant.model";
+import { EtudiantService } from "../../services/etudiant.service";
 
 @Component({
   selector: 'app-detail-etu',
   standalone: true,
-  imports: [ReactiveFormsModule,MatFormFieldModule,MatInputModule,CommonModule],
+  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, CommonModule],
   templateUrl: './detail-etu.component.html',
-  styleUrl: './detail-etu.component.css'
+  styleUrls: ['./detail-etu.component.css']
 })
 export class DetailEtuComponent {
 
-  etudiants = [
-    { 
-      id: 1, 
-      cne: 'CNE123456', 
-      cin: 'AB123456', 
-      nom: 'Akiirne', 
-      prenom: 'Amal', 
-      email: 'akiirne@uae.ac.ma', 
-      adresse: 'Rabat, Maroc', 
-      numTele: '0612345678', 
-      dateNAissance: '1990-05-12' 
-    },
-    { 
-      id: 2, 
-      cne: 'CNE789012', 
-      cin: 'CD789012', 
-      nom: 'Amh', 
-      prenom: 'Wiam', 
-      email: 'amh@uae.ac.ma', 
-      adresse: 'Casablanca, Maroc', 
-      numTele: '0623456789', 
-      dateNAissance: '1988-08-20' 
-    },
-    { 
-      id: 3, 
-      cne: 'CNE345678', 
-      cin: 'EF345678', 
-      nom: 'Aya', 
-      prenom: 'El', 
-      email: 'el@uae.ac.ma', 
-      adresse: 'Marrakech, Maroc', 
-      numTele: '0634567890', 
-      dateNAissance: '1995-02-15' 
-    }
-  ];
-
-  
-  
-  etuForm !: FormGroup;
- 
-  router = inject(Router);
+  id!: number;
+  etuForm!: FormGroup;
   idT!: number;
   readonly dialog = inject(MatDialog);
   nom: string = '';
-  constructor(private route: ActivatedRoute,private fb: FormBuilder,@Inject(DOCUMENT) public document: Document) {
-    this.etuForm = this.fb.group({
-    nom: ['', Validators.required],
-    prenom: ['', Validators.required],
-    email: ['', Validators.required],
-    cin: ['', Validators.required],
-    cne: ['', Validators.required],
-    adresse: ['', Validators.required],
-    numTele: ['', Validators.required],
-    naissance_date: ['', Validators.required],
 
+  constructor(
+    private route: ActivatedRoute,
+    private fb: FormBuilder,
+    @Inject(DOCUMENT) public document: Document,
+    private router: Router,
+    private etudiantService: EtudiantService
+  ) {
+    this.etuForm = this.fb.group({
+      nom: ['', Validators.required],
+      prenom: ['', Validators.required],
+      email: ['', Validators.required],
+      cin: ['', Validators.required],
+      cne: ['', Validators.required],
+      adresse: ['', Validators.required],
+      numTele: ['', Validators.required],
+      naissance_date: [, Validators.required] // date picker input
     });
-    }
+  }
+
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id'); 
-    const professor = this.etudiants.find((etu) => etu.id === Number(id)); 
-    if (professor) {
-      this.etuForm.patchValue(professor); 
-      this.nom=professor.nom;
+    const idParam = this.route.snapshot.paramMap.get('id');
+    if (idParam) {
+      this.id = +idParam; // Convertir l'id en nombre
+      this.etudiantService.getEtudiantById(this.id).subscribe(
+        (etudiant) => {
+          if (etudiant) {
+            // Format la date de naissance au format 'YYYY-MM-DD' pour le champ date
+            const formattedDate = this.formatDate(etudiant.dateNAissance);
+            this.etuForm.patchValue({
+              ...etudiant,
+              naissance_date: formattedDate // Pré-remplir le champ avec la date formatée
+            });
+            this.nom = etudiant.nom;
+          }
+        },
+        (error) => {
+          console.error('Erreur lors de la récupération de l\'étudiant:', error);
+        }
+      );
     }
   }
-  
- 
-  
-    onSubmit() {
-     
+
+  formatDate(date: string): string {
+    const dateObj = new Date(date);
+    const year = dateObj.getFullYear();
+    const month = ('0' + (dateObj.getMonth() + 1)).slice(-2);
+    const day = ('0' + dateObj.getDate()).slice(-2);
+    return `${year}-${month}-${day}`; // Format 'YYYY-MM-DD'
+  }
+
+  onSubmit(): void {
+    if (this.etuForm.valid) {
+      const updatedEtudiant = this.etuForm.value;
+      // Convertir la date de naissance en un objet Date (si nécessaire)
+      if (updatedEtudiant.naissance_date) {
+        updatedEtudiant.dateNAissance = new Date(updatedEtudiant.naissance_date);
+      }
+      this.etudiantService.updateEtudiant(this.id, updatedEtudiant).subscribe(
+        (response) => {
+          console.log('Étudiant mis à jour avec succès:', response);
+          this.router.navigate(['/gestion-etu']);
+        },
+        (error) => {
+          console.error('Erreur lors de la mise à jour de l\'étudiant:', error);
+        }
+      );
+    } else {
+      console.log('Formulaire invalide');
+    }
   }
 
   openDialog() {
@@ -94,7 +100,8 @@ export class DetailEtuComponent {
       data: { idT: this.idT }
     });
   }
-
+  onCancel(): void {
+    this.etuForm.reset();
+    this.router.navigate(['/gestion-etu'])
+  }
 }
-
-

@@ -11,6 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/matieres")
 public class MatierController {
+
     @Autowired
     MatiereService matiereService;
 
@@ -23,7 +24,7 @@ public class MatierController {
     // Récupérer un Matière par son ID
     @GetMapping("/{id}")
     public ResponseEntity<Matiere> getMatiereById(@PathVariable Long id) {
-        Matiere matiere= matiereService.findById(id);
+        Matiere matiere = matiereService.findById(id);
         if (matiere != null) {
             return ResponseEntity.ok(matiere);
         } else {
@@ -31,18 +32,18 @@ public class MatierController {
         }
     }
 
-    // Ajouter une nouvelle Matières
+    // Ajouter une nouvelle Matière
     @PostMapping
     public ResponseEntity<Matiere> createMatiere(@RequestBody Matiere matiere) {
         matiereService.save(matiere);
         return ResponseEntity.ok(matiere);
     }
 
-    // Mettre à jour une Matière existant
+    // Mettre à jour une Matière existante
     @PutMapping("/{id}")
     public ResponseEntity<Matiere> updateMatiere(@PathVariable Long id, @RequestBody Matiere updatedMatiere) {
-        Matiere existingMatiere= matiereService.findById(id);
-        if (existingMatiere!= null) {
+        Matiere existingMatiere = matiereService.findById(id);
+        if (existingMatiere != null) {
             updatedMatiere.setId(id); // S'assurer que l'ID correspond
             matiereService.save(updatedMatiere);
             return ResponseEntity.ok(updatedMatiere);
@@ -51,10 +52,10 @@ public class MatierController {
         }
     }
 
-    // Supprimer une matiere par son ID
+    // Supprimer une matière par son ID
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteEtudiant(@PathVariable Long id) {
-        Matiere existingMatiere= matiereService.findById(id);
+    public ResponseEntity<Void> deleteMatiere(@PathVariable Long id) {
+        Matiere existingMatiere = matiereService.findById(id);
         if (existingMatiere != null) {
             matiereService.deleteById(id);
             return ResponseEntity.noContent().build();
@@ -62,9 +63,10 @@ public class MatierController {
             return ResponseEntity.notFound().build();
         }
     }
+
     @GetMapping("/prof/{id}")
     public List<Matiere> getMatiereByProf(@PathVariable Long id) {
-      return matiereService.findByProf(id);
+        return matiereService.findByProf(id);
     }
 
     // Endpoint pour obtenir le nombre total de matières
@@ -80,14 +82,10 @@ public class MatierController {
 
         // Vérification si la matière existe
         if (existingMatiere != null) {
-
             existingMatiere.setProfId(ProfId);
-
             matiereService.save(existingMatiere);
-
             return ResponseEntity.ok(existingMatiere);
         } else {
-
             return ResponseEntity.notFound().build();
         }
     }
@@ -96,5 +94,15 @@ public class MatierController {
     public ResponseEntity<Matiere> ajouterEtudiant(@PathVariable Long matiereId, @PathVariable Long etudiantId) {
         Matiere matiere = matiereService.ajouterEtudiant(matiereId, etudiantId);
         return ResponseEntity.ok(matiere);
+    }
+
+    @GetMapping("/byFiliere/{filiere}")
+    public List<Matiere> getMatiereByFiliere(@PathVariable String filiere) {
+        return matiereService.findByFiliere(filiere);
+    }
+
+    @GetMapping("/filieres")
+    public List<String> getFilieres() {
+        return matiereService.getDistinctFilieres();
     }
 }

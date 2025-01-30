@@ -33,6 +33,7 @@ public class EtudiantServiceImpl implements EtudiantService{
        etudiantRepository.deleteById(id);
     }
     @Override
+
     public Etudiant ajouterMatiere(Long etudiantId, Long matiereId) {
         Optional<Etudiant> etudiantOpt = etudiantRepository.findById(etudiantId);
 
@@ -49,6 +50,11 @@ public class EtudiantServiceImpl implements EtudiantService{
         } else {
             throw new RuntimeException("Étudiant non trouvé avec ID : " + etudiantId);
         }
+    }
+
+
+    public  long getTotalEtudaints(){
+       return etudiantRepository.count();
     }
 
 
