@@ -52,9 +52,9 @@ export class SidebarComponent implements OnInit {
     const userRole = this.authService.currentUserRole();
     if (userRole === 'ADMIN') {
     this.menuItems = ADMIN_ROUTES.filter(menuItem => menuItem);
-  } else if (userRole === 'PROF') {
+  } else if (userRole === 'PROFESSEUR') {
     this.menuItems = PROF_ROUTES.filter(menuItem => menuItem);
-  }else if (userRole === 'SECRETAIRE') {
+  }else if (userRole === 'SECRAITAIRE') {
     this.menuItems = SECRETAIRE_ROUTES.filter(menuItem => menuItem);
   }
   }

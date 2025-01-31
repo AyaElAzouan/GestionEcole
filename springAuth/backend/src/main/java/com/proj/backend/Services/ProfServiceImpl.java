@@ -37,5 +37,8 @@ public class ProfServiceImpl implements ProfService{
         profRepository.deleteById(id);
     }
 
-
+    @Override
+    public Professeur findByUserId(Long id) {
+        return profRepository.findByUserId(id).orElse(null);
+    }
 }

@@ -69,7 +69,7 @@ export class MesMatiereComponent {
   }
 
   onEdit2(matiere: Matiere): void {
-    this.router.navigate(['/detail-matiere', matiere.id]);
+    this.router.navigate(['/mes-etudiants']);
   }
 
 }

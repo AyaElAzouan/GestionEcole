@@ -6,6 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { AuthService } from '../services/auth.service';
 import { UserLogin } from '../models/user.model';
+import { ProfService } from '../services/prof/prof.service';
 
 @Component({
   selector: 'app-user-compte',
@@ -16,22 +17,30 @@ import { UserLogin } from '../models/user.model';
   styleUrl: './user-compte.component.css'
 })
 export class UserCompteComponent implements OnInit {
+  role!: string;
   UserForm !: FormGroup;
+  ProfForm !: FormGroup;
   authService = inject(AuthService);
   authenticatedUser!: UserLogin | null;
-  constructor(private fb: FormBuilder,@Inject(DOCUMENT) public document: Document) {
-    this.UserForm = this.fb.group({
+  constructor(private fb: FormBuilder,@Inject(DOCUMENT) public document: Document,private proService :ProfService ) {
+    this.ProfForm = this.fb.group({
       nom: ['', Validators.required],
       prenom: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       adresse: ['', Validators.required],
-      tel: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+      numTele: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+      role: ['', Validators.required]
+    });
+    this.UserForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
       role: ['', Validators.required]
     });
     }
     
    
     ngOnInit() {
+      this.role = this.authService.currentUserRole() ?? '';
+      if(this.role=='ADMIN'||this.role=='SECRAITAIRE'){
       this.authenticatedUser = this.authService.currentUser();
       if(this.authenticatedUser){
         console.log(this.authenticatedUser.email);
@@ -39,17 +48,33 @@ export class UserCompteComponent implements OnInit {
             email: this.authenticatedUser.email,
             role: this.authService.currentUserRole()
           });
-          
-          
-  this.UserForm.get('email')?.disable();
-  this.UserForm.get('role')?.disable();
-        
-       
+                 
+       this.UserForm.get('role')?.disable();   
     }
-    
+  }else if(this.role=='PROFESSEUR'){
+    this.proService.getProfesseurById(Number(this.authService.getUserId())).subscribe(
+      (data) => {
+        console.log(data);
+        this.ProfForm.patchValue({
+          email: data.email,
+          nom: data.nom,
+          prenom : data.prenom,
+          adresse: data.adresse,
+          numTele: data.numTele
+
+        });
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
+ 
   }
 
+  onSubmit(){
 
+  }
 
 
 

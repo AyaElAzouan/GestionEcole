@@ -36,8 +36,7 @@
                                 <th>Nom</th>
                                 <th>Responsable</th>
                                 <th>Volume Horaire</th>
-                                <th></th>
-                                <th></th>
+                                <th>Etudiants</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -47,22 +46,15 @@
                                 <td>{{matiere.responsable}}</td>
                                 <td>{{matiere.volume_horaire}}</td>
                                 <td>
-                                  <button type="button" matTooltip="Détails" 
+                                  <button type="button" matTooltip="Voir" 
                                           [matTooltipPosition]="'above'" 
                                           class="btn btn-primary btn-link btn-sm btn-just-icon"
                                           (click)="onEdit2(matiere)"
                                          >
-                                    <i class="material-icons" style="font-size: 1.5rem;">edit</i>
+                                    <i class="material-icons" style="font-size: 1.5rem;">groups</i>
                                   </button>
                                 </td>
-                                <td>
-                                  <button type="button" matTooltip="Remove" 
-                                          [matTooltipPosition]="'above'" 
-                                          class="btn btn-danger btn-link btn-sm btn-just-icon"
-                                         >
-                                    <i class="material-icons" style="font-size: 1.5rem;">delete</i>
-                                  </button>
-                                </td>
+                               
                               </tr>
                             </tbody>
                           </table>

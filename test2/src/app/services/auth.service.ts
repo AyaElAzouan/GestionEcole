@@ -11,8 +11,9 @@ import { jwtDecode } from 'jwt-decode';
 })
 export class AuthService {
 
-  private apiUrl = 'http://localhost:8080/api/auth'; // L'URL de l'API
-
+  private apiUrl = 'http://localhost:8080/BACKEND/api/auth'; 
+ 
+  
   constructor(private http: HttpClient) {}
 
   
@@ -39,7 +40,12 @@ export class AuthService {
       })
     );
   }
-  
+  registerProf(userData: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/registerProf`, userData);
+  }
+  registerUser(userData: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/register`, userData);
+  }
   
   logout(): void {
     localStorage.removeItem('JwtToken');
@@ -53,7 +59,7 @@ export class AuthService {
     return this.getToken() != null;
   }
 
-
+ 
 
   currentUser(): UserLogin | null {
     if (this.getToken()) {
@@ -92,6 +98,20 @@ export class AuthService {
 
   getProfessorEmails(): Observable<string[]> {
     return this.http.get<string[]>(`${this.apiUrl}/authenticate/professors/emails`);
+  }
+
+  getUserId(): number | null {
+    const token = this.getToken();  
+
+    if (token) {
+      const tokenPayload: any = jwtDecode(token); 
+
+      if (tokenPayload && tokenPayload.userId) {  
+        return tokenPayload.userId; 
+      }
+    }
+
+    return null; 
   }
 
 }
