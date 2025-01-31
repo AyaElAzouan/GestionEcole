@@ -48,4 +48,10 @@ public class ProfServiceImpl implements ProfService{
         }
         throw new RuntimeException("Professeur non trouvé");
     }
+    @Override
+
+        public Professeur findByUserId(Long id) {
+        return profRepository.findByUserId(id).orElse(null);
+
+    }
 }

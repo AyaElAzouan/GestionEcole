@@ -58,6 +58,7 @@
 //}
 package com.proj.backend.config;
 
+import com.google.common.net.HttpHeaders;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -117,5 +118,13 @@ public class JwtAuthentificationFilter extends OncePerRequestFilter {
         }
         filterChain.doFilter(request,response);
     }
+    private String extractToken(HttpServletRequest request) {
+        String header = request.getHeader(HttpHeaders.AUTHORIZATION);
+        if (header != null && header.startsWith("Bearer ")) {
+            return header.substring(7);
+        }
+        return null;
+    }
+
 }
 

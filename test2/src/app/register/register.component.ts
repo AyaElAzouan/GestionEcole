@@ -2,7 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,ReactiveFormsModule } from '@angular/forms';
 import { UserRole } from '../models/user.model';
-
+import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -11,33 +12,37 @@ import { UserRole } from '../models/user.model';
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
+  alertType: string | null = null;  // 'success' ou 'danger'
+  alertMessage: string | null = null;
   selectedRole: UserRole | null = null;
   adminForm: FormGroup;
   secretaireForm: FormGroup;
   profForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,private authService: AuthService, private router: Router) {
     // Initialize all forms
     this.adminForm = this.fb.group({
-      username: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      adminCode: ['', [Validators.required]]
+      role: ['']
     });
 
     this.secretaireForm = this.fb.group({
-      username: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      department: ['', [Validators.required]]
+      role: ['']
     });
 
     this.profForm = this.fb.group({
-      username: ['', [Validators.required]],
+      cin: ['', Validators.required],
+      code: ['', Validators.required],
+      nom: ['', Validators.required],
+      prenom: ['', Validators.required],
+      adresse: ['', Validators.required],
+      numTele: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]], 
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      subject: ['', [Validators.required]],
-      yearsOfExperience: ['', [Validators.required, Validators.min(0)]]
+      role:['']
     });
   }
 
@@ -52,34 +57,89 @@ export class RegisterComponent {
 
   onSubmit() {
     let currentForm: FormGroup;
+    let roleValue = '';
+
     switch (this.selectedRole) {
       case 'admin':
         currentForm = this.adminForm;
+        roleValue = 'ADMIN';
         break;
       case 'secretaire':
         currentForm = this.secretaireForm;
+        roleValue = 'SECRAITAIRE';
         break;
       case 'prof':
         currentForm = this.profForm;
+        roleValue = 'PROFESSEUR';
         break;
       default:
         return;
     }
 
-    if (currentForm.valid) {
-      console.log('Form submitted:', {
-        role: this.selectedRole,
-        data: currentForm.value
-      });
-      // Here you would typically call your authentication service
-      // to register the user
-    } else {
-      Object.keys(currentForm.controls).forEach(key => {
-        const control = currentForm.get(key);
-        if (control?.invalid) {
-          control.markAsTouched();
+    // Affecter la valeur du rôle
+    currentForm.patchValue({ role: roleValue });
+
+    if (currentForm.valid && roleValue=='PROFESSEUR') {
+        // Transformer les données avant l'envoi
+        const formattedData = {
+            cin: currentForm.value.cin || '',
+            code: currentForm.value.code || '',
+            nom: currentForm.value.nom || '',
+            prenom: currentForm.value.prenom || '',
+            adresse: currentForm.value.adresse || '',
+            numTele: currentForm.value.numTele || '',
+            user: {
+                email: currentForm.value.email || '',
+                password: currentForm.value.password || '',
+                role: currentForm.value.role || ''
+            }
+        };
+
+        console.log('Données envoyées:', formattedData);
+      
+        this.authService.registerProf(formattedData).subscribe(
+          response => {
+            console.log('Utilisateur enregistré avec succès:', response);
+            this.alertType = 'success';
+            this.alertMessage = 'Utilisateur enregistré avec succès !';
+            this.router.navigate(['/login']);
+            
+          },
+          error => {
+            console.error('Erreur lors de l\'inscription:', error);
+            this.alertType = 'danger';
+            this.alertMessage = 'Erreur lors de l\'inscription. Veuillez réessayer.';
+          }
+        );
+      
+      }else if(currentForm.valid && roleValue=='ADMIN' || roleValue=='SECRAITAIRE'){
+        const formattedData = {
+              email: currentForm.value.email || '',
+              password: currentForm.value.password || '',
+              role: currentForm.value.role || ''  
+      };
+
+      console.log('Données envoyées:', formattedData);
+    
+      this.authService.registerUser(formattedData).subscribe(
+        response => {
+          console.log('Utilisateur enregistré avec succès:', response);
+          this.alertType = 'success';
+          this.alertMessage = 'Utilisateur enregistré avec succès !';
+          this.router.navigate(['/login']);
+        },
+        error => {
+          console.error('Erreur lors de l\'inscription:', error);
+          this.alertType = 'danger';
+          this.alertMessage = 'Erreur lors de l\'inscription. Veuillez réessayer.';
         }
-      });
-    }
+      );
+    } else {
+    console.log('Formulaire invalide');
+    this.alertType = 'danger';
+    this.alertMessage = 'Formulaire invalide. Veuillez vérifier vos informations.';
   }
+    
+}
+
 }

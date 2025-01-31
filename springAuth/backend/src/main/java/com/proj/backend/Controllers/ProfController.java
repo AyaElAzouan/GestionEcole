@@ -2,6 +2,7 @@ package com.proj.backend.Controllers;
 
 
 
+import com.proj.backend.DTOs.ProfesseurDTO;
 import com.proj.backend.Entities.Professeur;
 import com.proj.backend.Services.ProfService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,27 @@ public class ProfController {
         Professeur professeur= profService.findById(id);
         if (professeur != null) {
             return ResponseEntity.ok(professeur);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @GetMapping("userid/{id}")
+    public ResponseEntity<ProfesseurDTO> getEtudiantByUserId(@PathVariable Long id) {
+        Professeur professeur= profService.findByUserId(id);
+        if (professeur != null) {
+            // Créer un DTO et remplir les champs
+            ProfesseurDTO professeurDTO = new ProfesseurDTO(
+                    professeur.getId(),
+                    professeur.getCin(),
+                    professeur.getCode(),
+                    professeur.getNom(),
+                    professeur.getPrenom(),
+                    professeur.getAdresse(),
+                    professeur.getNumTele(),
+                    professeur.getUser().getEmail() // On récupère l'email depuis l'utilisateur associé
+            );
+            return ResponseEntity.ok(professeurDTO);
+
         } else {
             return ResponseEntity.notFound().build();
         }

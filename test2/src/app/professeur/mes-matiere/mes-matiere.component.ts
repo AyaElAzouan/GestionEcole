@@ -25,5 +25,32 @@ export class MesMatiereComponent {
   }
 
 
+
+
+
+
+//matiere parameters
+  matieres: Matiere[] = [];
+
+  filieres = ['GINF1', 'GINF2', 'GINF3'];
+  selectedFiliere = 'GINF1';
+  filteredMatieres: Matiere[] = [];
+
+
+
+  selectFiliere(filiere: string): void {
+    this.selectedFiliere = filiere;
+    this.filterMatieres();
+  }
+
+  filterMatieres(): void {
+    this.filteredMatieres = this.matieres.filter(m => m.filiere=== this.selectedFiliere);
+  }
+
+  onEdit2(matiere: Matiere): void {
+    this.router.navigate(['/mes-etudiants']);
+  }
+
+
 }
 

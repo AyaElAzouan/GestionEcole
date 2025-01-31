@@ -15,7 +15,10 @@ export interface UserLogin {
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8080/BACKEND/api/auth'; // URL de l'API backend
+
+
+  private apiUrl = 'http://localhost:8080/BACKEND/api/auth';
+
 
   constructor(private http: HttpClient) {}
 
@@ -40,9 +43,15 @@ export class AuthService {
       })
     );
   }
- 
 
-  // Méthode pour se déconnecter
+  registerProf(userData: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/registerProf`, userData);
+  }
+  registerUser(userData: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/register`, userData);
+  }
+
+
   logout(): void {
     localStorage.removeItem('JwtToken');
     console.log('Utilisateur déconnecté, token supprimé.');
@@ -58,7 +67,6 @@ export class AuthService {
     return this.getToken() !== null;
   }
 
-  // Méthode pour récupérer l'utilisateur actuel
   currentUser(): UserLogin | null {
     const token = this.getToken();
     if (token) {
@@ -103,4 +111,21 @@ export class AuthService {
       })
     );
   }
+
+
+  getUserId(): number | null {
+    const token = this.getToken();
+
+    if (token) {
+      const tokenPayload: any = jwtDecode(token);
+
+      if (tokenPayload && tokenPayload.userId) {
+        return tokenPayload.userId;
+      }
+    }
+
+    return null;
+  }
+
 }
+

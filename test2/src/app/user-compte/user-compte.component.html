@@ -8,7 +8,34 @@
                         <p class="card-category">Spécification pour vous</p>
                     </div>
                     <div class="card-body">
-                        <form [formGroup]="UserForm">
+                        <!-- Secretaire et admin Form -->
+                        <form *ngIf="role === 'SECRAITAIRE' || role === 'ADMIN'" [formGroup]="UserForm" (ngSubmit)="onSubmit()">
+                           
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="custom-input-container">
+                                        <label for="email">Email:</label>
+                                        <input id="email" formControlName="email" type="email" required placeholder=" " class="price-input"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="custom-input-container">
+                                        <label >Position:</label>
+                                        <input  type="text" required [value]="role + ' de l\'ENSA Tanger'" class="price-input"/>
+                                    </div>
+                                </div>
+                            </div>
+                
+                          
+                
+                            <div class="d-flex justify-content-center">
+                                <button mat-raised-button type="submit" class="btn btn-danger">Valider les modifications</button>
+                            </div>
+                
+                            <div class="clearfix"></div>
+                        </form>
+                        <!-- prof Form -->
+                        <form *ngIf="role === 'PROFESSEUR'" [formGroup]="ProfForm" (ngSubmit)="onSubmit()">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="custom-input-container">
@@ -42,8 +69,8 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="custom-input-container">
-                                        <label for="tel">Téléphone:</label>
-                                        <input id="tel" formControlName="tel" type="tel" required placeholder=" " class="price-input"/>
+                                        <label for="numTele">Téléphone:</label>
+                                        <input id="numTele" formControlName="numTele" type="tel" required placeholder=" " class="price-input"/>
                                     </div>
                                 </div>
                                 
@@ -66,12 +93,16 @@
                           <img id="cardImage" class="img" [src]="'assets/img/tim_80x80.png'" />
                         </a>
                     </div>
-                    <div class="card-body">
+                    <div *ngIf="role === 'SECRAITAIRE' || role === 'ADMIN'" class="card-body">
                       <h4 class="card-title"id="name">{{ UserForm.get('email')?.value }}</h4>
-                      <h4 class="card-title"id="name">{{ UserForm.get('nom')?.value }} {{ UserForm.get('prenom')?.value }} </h4>
-
-                        
+                      <h4 class="card-title"id="name">{{ UserForm.get('role')?.value }} </h4>  
                     </div>
+                    <div *ngIf="role === 'PROFESSEUR'" class="card-body">
+                        <h4 class="card-title"id="name">{{ ProfForm.get('email')?.value }}</h4>
+                        <h4 class="card-title"id="name">{{ ProfForm.get('nom')?.value }} {{ ProfForm.get('prenom')?.value }} </h4>
+  
+                          
+                      </div>
                 </div>
             </div>
         </div>

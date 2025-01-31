@@ -1,5 +1,9 @@
 <div class="register-container">
     <div class="glass-card">
+      <div *ngIf="alertMessage" class="alert alert-{{ alertType }} alert-dismissible fade show" role="alert">
+        {{ alertMessage }}
+        <button type="button" class="btn-close" (click)="alertMessage = null" aria-label="Close"></button>
+      </div>
       <h2>S'inscrire</h2>
       
       <!-- Role Selection Step -->
@@ -29,15 +33,7 @@
         
         <!-- Admin Form -->
         <form *ngIf="selectedRole === 'admin'" [formGroup]="adminForm" (ngSubmit)="onSubmit()">
-          <div class="form-group">
-            <label for="username">Username:</label>
-            <input id="username" type="text" formControlName="username"
-                   [class.error]="isFieldInvalid(adminForm, 'username')">
-            <div class="error-message" *ngIf="isFieldInvalid(adminForm, 'username')">
-              Username is required
-            </div>
-          </div>
-
+         
           <div class="form-group">
             <label for="email">Email:</label>
             <input id="email" type="email" formControlName="email"
@@ -56,29 +52,14 @@
             </div>
           </div>
 
-          <div class="form-group">
-            <label for="adminCode">Admin Code:</label>
-            <input id="adminCode" type="text" formControlName="adminCode"
-                   [class.error]="isFieldInvalid(adminForm, 'adminCode')">
-            <div class="error-message" *ngIf="isFieldInvalid(adminForm, 'adminCode')">
-              Admin code is required
-            </div>
-          </div>
+        
 
           <button type="submit" [disabled]="adminForm.invalid">S'inscrire</button>
         </form>
 
         <!-- Secretaire Form -->
         <form *ngIf="selectedRole === 'secretaire'" [formGroup]="secretaireForm" (ngSubmit)="onSubmit()">
-          <div class="form-group">
-            <label for="username">Username:</label>
-            <input id="username" type="text" formControlName="username"
-                   [class.error]="isFieldInvalid(secretaireForm, 'username')">
-            <div class="error-message" *ngIf="isFieldInvalid(secretaireForm, 'username')">
-              Username is required
-            </div>
-          </div>
-
+         
           <div class="form-group">
             <label for="email">Email:</label>
             <input id="email" type="email" formControlName="email"
@@ -97,14 +78,7 @@
             </div>
           </div>
 
-          <div class="form-group">
-            <label for="department">Department:</label>
-            <input id="department" type="text" formControlName="department"
-                   [class.error]="isFieldInvalid(secretaireForm, 'department')">
-            <div class="error-message" *ngIf="isFieldInvalid(secretaireForm, 'department')">
-              Department is required
-            </div>
-          </div>
+          
 
           <button type="submit" [disabled]="secretaireForm.invalid">S'inscrire</button>
         </form>
@@ -112,52 +86,72 @@
         <!-- Prof Form -->
         <form *ngIf="selectedRole === 'prof'" [formGroup]="profForm" (ngSubmit)="onSubmit()">
           <div class="form-group">
-            <label for="username">Username:</label>
-            <input id="username" type="text" formControlName="username"
-                   [class.error]="isFieldInvalid(profForm, 'username')">
-            <div class="error-message" *ngIf="isFieldInvalid(profForm, 'username')">
-              Username is required
+            <label for="cin">CIN:</label>
+            <input id="cin" type="text" formControlName="cin" [class.error]="isFieldInvalid(profForm, 'cin')">
+            <div class="error-message" *ngIf="isFieldInvalid(profForm, 'cin')">
+              CIN est requis
             </div>
           </div>
-
+        
+          <div class="form-group">
+            <label for="code">Code:</label>
+            <input id="code" type="text" formControlName="code" [class.error]="isFieldInvalid(profForm, 'code')">
+            <div class="error-message" *ngIf="isFieldInvalid(profForm, 'code')">
+              Code est requis
+            </div>
+          </div>
+        
+          <div class="form-group">
+            <label for="nom">Nom:</label>
+            <input id="nom" type="text" formControlName="nom" [class.error]="isFieldInvalid(profForm, 'nom')">
+            <div class="error-message" *ngIf="isFieldInvalid(profForm, 'nom')">
+              Nom est requis
+            </div>
+          </div>
+        
+          <div class="form-group">
+            <label for="prenom">Prénom:</label>
+            <input id="prenom" type="text" formControlName="prenom" [class.error]="isFieldInvalid(profForm, 'prenom')">
+            <div class="error-message" *ngIf="isFieldInvalid(profForm, 'prenom')">
+              Prénom est requis
+            </div>
+          </div>
+        
+          <div class="form-group">
+            <label for="adresse">Adresse:</label>
+            <input id="adresse" type="text" formControlName="adresse" [class.error]="isFieldInvalid(profForm, 'adresse')">
+            <div class="error-message" *ngIf="isFieldInvalid(profForm, 'adresse')">
+              Adresse est requise
+            </div>
+          </div>
+        
+          <div class="form-group">
+            <label for="numTele">Numéro de téléphone:</label>
+            <input id="numTele" type="text" formControlName="numTele" [class.error]="isFieldInvalid(profForm, 'numTele')">
+            <div class="error-message" *ngIf="isFieldInvalid(profForm, 'numTele')">
+              Numéro de téléphone est requis
+            </div>
+          </div>
+        
           <div class="form-group">
             <label for="email">Email:</label>
-            <input id="email" type="email" formControlName="email"
-                   [class.error]="isFieldInvalid(profForm, 'email')">
+            <input id="email" type="email" formControlName="email" [class.error]="isFieldInvalid(profForm, 'email')">
             <div class="error-message" *ngIf="isFieldInvalid(profForm, 'email')">
-              Valid email is required
+              Email valide est requis
             </div>
           </div>
-
+        
           <div class="form-group">
-            <label for="password">Password:</label>
-            <input id="password" type="password" formControlName="password"
-                   [class.error]="isFieldInvalid(profForm, 'password')">
+            <label for="password">Mot de passe:</label>
+            <input id="password" type="password" formControlName="password" [class.error]="isFieldInvalid(profForm, 'password')">
             <div class="error-message" *ngIf="isFieldInvalid(profForm, 'password')">
-              Password must be at least 6 characters
+              Mot de passe doit contenir au moins 6 caractères
             </div>
           </div>
-
-          <div class="form-group">
-            <label for="subject">Subject:</label>
-            <input id="subject" type="text" formControlName="subject"
-                   [class.error]="isFieldInvalid(profForm, 'subject')">
-            <div class="error-message" *ngIf="isFieldInvalid(profForm, 'subject')">
-              Subject is required
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="yearsOfExperience">Years of Experience:</label>
-            <input id="yearsOfExperience" type="number" formControlName="yearsOfExperience"
-                   [class.error]="isFieldInvalid(profForm, 'yearsOfExperience')">
-            <div class="error-message" *ngIf="isFieldInvalid(profForm, 'yearsOfExperience')">
-              Years of experience is required
-            </div>
-          </div>
-
+        
           <button type="submit" [disabled]="profForm.invalid">S'inscrire</button>
         </form>
+        
       </div>
     </div>
   </div>

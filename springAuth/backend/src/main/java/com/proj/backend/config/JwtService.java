@@ -41,9 +41,9 @@ public class JwtService {
         return claimsResolver.apply(claims);
     }
 
-    public String generateToken(UserDetails userDetails) {
+    public String generateToken(UserDetails userDetails,Integer userId) {
         return Jwts.builder()
-                .setClaims(Map.of("role", userDetails.getAuthorities()))
+                .setClaims(Map.of("role", userDetails.getAuthorities(), "userId", userId))
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
