@@ -43,18 +43,8 @@ export class MatiereService {
   getProfMatieres(id:number):Observable<Matiere[]> {
   return this.http.get<Matiere[]>(`${this.apiUrl}/prof/${id}`);
   }
-  assignerProf(matiereId: number, profId: number): Observable<Matiere> {
-    const params = new HttpParams().set('ProfId', profId.toString());
 
-    return this.http.put<Matiere>(`${this.apiUrl}/assigner/${matiereId}`, {}, { params });
-  }
-  getMatieresByFiliere(filiere:string):Observable<Matiere[]> {
-  return this.http.get<Matiere[]>(`${this.apiUrl}/byFiliere/${encodeURIComponent(filiere)}`);
-  }
-  getDistinctFilieres(): Observable<string[]> {
-    return this.http.get<string[]>(this.apiUrl);
-  }
-  getProfs(): Observable<any> {
-    return this.http.get<any>('http://localhost:8080/BACKEND/api/professeurs');
+  assignerProfesseur(id: number, profId: number): Observable<Matiere> {
+    return this.http.put<Matiere>('${this.apiUrl}/assigner/${id}?ProfId=${profId}', {}); // On n'a pas besoin de body pour cette API
   }
 }

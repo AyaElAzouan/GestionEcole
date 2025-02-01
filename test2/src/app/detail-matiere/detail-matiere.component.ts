@@ -9,6 +9,8 @@ import { DialogComponent } from '../dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatiereService } from "../services/matiere.service";
 import { Matiere } from '../models/matière.model';
+import {Prof} from "../models/Prof.model";
+import {ProfesseurService} from "../services/professeur.service";
 
 @Component({
   selector: 'app-detail-matiere',
@@ -19,7 +21,7 @@ import { Matiere } from '../models/matière.model';
   styleUrls: ['./detail-matiere.component.css'] // ✅ Correction ici
 })
 export class DetailMatiereComponent implements OnInit {
-  listProf: any[] = []; // ✅ Initialisation correcte
+  listProf: Prof[]=[]; // ✅ Initialisation correcte
   id!: number;
   matiereForm!: FormGroup;
   private notifComponent = inject(NotificationsComponent);
@@ -31,7 +33,8 @@ export class DetailMatiereComponent implements OnInit {
     private route: ActivatedRoute,
     private fb: FormBuilder,
     @Inject(DOCUMENT) public document: Document,
-    private matiereService: MatiereService
+    private matiereService: MatiereService,
+    private profService:ProfesseurService
   ) {
     this.matiereForm = this.fb.group({
       nom: ['', Validators.required],
@@ -44,9 +47,10 @@ export class DetailMatiereComponent implements OnInit {
   ngOnInit(): void {
     const idParam = this.route.snapshot.paramMap.get('id');
     if (idParam) {
-      this.id = +idParam; // Convertir l'id en nombre
+      this.id = +idParam; // Convertir l'id en
+      this.chargerProfs();
       this.matiereService.getMatiereById(this.id).subscribe(
-        (matiere: Matiere) => {  // ✅ Correction ici
+        (matiere: Matiere) => {
           if (matiere) {
             this.matiereForm.patchValue(matiere);
           }
@@ -56,12 +60,18 @@ export class DetailMatiereComponent implements OnInit {
         }
       );
     }
+
   }
 
   onSubmit() {
     if (this.matiereForm.valid) {
+
       const matiereData = this.matiereForm.value;
       console.log("Données du formulaire:", matiereData);
+      if (!matiereData.profId) {
+        // Si profId est vide, on peut ne pas envoyer ce champ ou l'assigner à null
+        matiereData.profId = null;
+      }
 
       this.matiereService.updateMatiere(this.id, matiereData).subscribe(
         () => {
@@ -72,9 +82,40 @@ export class DetailMatiereComponent implements OnInit {
           console.error('Erreur lors de la mise à jour de la matière:', error);
         }
       );
-    } else {
-      this.notifComponent.showNotification('Veuillez remplir tous les champs obligatoires.', 'error');
+      // L'ID du professeur choisi dans le formulaire
+      const profId = matiereData.profId;
+
+      // Envoi de la requête pour assigner un professeur à la matière
+      this.matiereService.assignerProfesseur(this.id, profId).subscribe(
+        () => {
+          this.notifComponent.showNotification('Matière mise à jour avec succès !', 'success');
+          this.router.navigate(['/gestion-matiere']);
+        },
+        (error) => {
+          console.error('Erreur lors de la mise à jour de la matière:', error);
+        }
+      );
+      this.profService.addMatiereToProfesseur(profId, this.id).subscribe(
+        () => {
+          this.notifComponent.showNotification('Matière ajoutée au professeur !', 'success');
+
+        },
+        (error) => {
+          console.error("Erreur lors de l'ajout de la matière au professeur:", error);
+        }
+      );
+
     }
+  }
+  chargerProfs(): void {
+    this.profService.getProfs().subscribe(
+      (data: Prof[]) => {
+        this.listProf = data || []; // Évite une erreur si data est null
+      },
+      (error) => {
+        console.error(' Erreur lors du chargement des professeurs :', error);
+      }
+    );
   }
 
   openDialog() {

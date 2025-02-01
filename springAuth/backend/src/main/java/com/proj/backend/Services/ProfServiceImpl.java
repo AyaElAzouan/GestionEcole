@@ -54,4 +54,8 @@ public class ProfServiceImpl implements ProfService{
         return profRepository.findByUserId(id).orElse(null);
 
     }
+    @Override
+    public  long getTotalProfs(){
+        return profRepository.count();
+    }
 }

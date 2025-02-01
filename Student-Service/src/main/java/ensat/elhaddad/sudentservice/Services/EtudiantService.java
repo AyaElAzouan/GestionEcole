@@ -15,7 +15,7 @@ public interface EtudiantService {
     Etudiant ajouterMatiere(Long etudiantId, Long matiereId);
 
     long getTotalEtudaints();
-
+    Etudiant supprimerMatiere(Long etudiantId, Long matiereId);
 
 
 }

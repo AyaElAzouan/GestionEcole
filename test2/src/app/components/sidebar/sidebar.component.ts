@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import {InscriptionAjoutComponent} from "../../secretaire/inscription-ajout/inscription-ajout.component";
 declare const $: any;
 declare interface RouteInfo {
     path: string;
@@ -11,8 +12,10 @@ declare interface RouteInfo {
 }
 export const PROF_ROUTES: RouteInfo[] = [
     { path: '/user-compte', title: 'Mon Profile',  icon:'person', class: '' },
-    { path: '/mes-matieres', title: 'Job',  icon: 'dashboard', class: '' },
-    { path: '/logout', title: 'Logout',  icon:'exit_to_app', class: '' },
+    { path: 'mes-matieres', title: 'List Matieres',  icon: 'dashboard', class: '' },
+    { path: 'mes-etudiants', title: 'List Etudiants',  icon: 'dashboard', class: '' },
+
+
 ];
 
 
@@ -23,10 +26,13 @@ export const SECRETAIRE_ROUTES: RouteInfo[] = [
   { path: '/gestion-prof', title: 'Gestion des prof',  icon:'assignment_turned_in', class: '' },
   { path: '/create-matiere', title: 'Ajouter matière',  icon:'book', class: '' },
   { path: '/gestion-matiere', title: 'Liste de matières',  icon:'assignment_turned_in', class: '' },
+  { path: '/create-inscription', title: 'Ajouter inscription', icon: 'how_to_reg', class: '' },
+  { path: '/list-inscription', title: 'Liste inscriptions', icon: 'fact_check', class: '' },
+
   { path: '/logout', title: 'Logout',  icon:'exit_to_app', class: '' },
-  
-  
- 
+
+
+
 ];
 
 export const ADMIN_ROUTES: RouteInfo[] = [

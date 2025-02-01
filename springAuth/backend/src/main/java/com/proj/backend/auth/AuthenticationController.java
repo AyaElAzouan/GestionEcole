@@ -54,4 +54,15 @@ public class AuthenticationController {
     public Integer getUserIdByEmail(@PathVariable String email) {
         return jwtService.getUserIdByEmail(email);
     }
+
+
+    @PutMapping("prof/{id}")
+    public ResponseEntity<Professeur> updateProfesseur(@PathVariable Long id, @RequestBody Professeur professeurDetails) {
+        try {
+            Professeur updatedProf = authenticationSercvice.updateProfesseur(id, professeurDetails);
+            return ResponseEntity.ok(updatedProf);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

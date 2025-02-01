@@ -7,7 +7,7 @@ import { Matiere } from '../../models/matière.model';
 import { MatiereService } from "../../services/matiere.service";
 import {ProfesseurService} from "../../services/professeur.service";
 import {Prof} from "../../models/Prof.model";
-import {Observable} from "rxjs";
+import {Observable, of} from "rxjs";
 
 @Component({
   selector: 'app-gestion-matiere',
@@ -47,6 +47,7 @@ export class GestionMatiereComponent implements OnInit {
   chargerFilieres(): void {
     this.matiereService.getMatieres().subscribe(
       (data) => {
+        console.log("matiere :"+data);
         // Extraire les filières uniques
         this.filieres =  ["Afficher tout", ...new Set(data.map(m => m.filiere))];
         console.log('Filières après traitement :', this.filieres);
@@ -96,8 +97,20 @@ export class GestionMatiereComponent implements OnInit {
   openAddMatiereForm():void{
     this.router.navigate(['/create-matiere']);
   }
-  getProfName(profId: number): Observable<Prof> {
-    return this.profService.getProfById(profId);
+  getProfName(profId: number): Observable<Prof | null> {
+    if (profId == null) {
+      // Si l'ID est nul ou indéfini, retourner null
+      return of(null); // Retourner un observable qui émet null
+    }
+
+    const cachedProf = this.listProf.find(prof => prof.id === profId);
+
+    if (cachedProf) {
+      return of(cachedProf); // Retourner l'objet Prof déjà chargé
+    } else {
+      return this.profService.getProfById(profId); // Faire l'appel API si le prof n'est pas dans la liste
+    }
   }
+
 
 }

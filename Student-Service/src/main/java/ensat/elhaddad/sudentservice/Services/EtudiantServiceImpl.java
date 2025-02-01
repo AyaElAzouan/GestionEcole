@@ -56,6 +56,26 @@ public class EtudiantServiceImpl implements EtudiantService{
     public  long getTotalEtudaints(){
        return etudiantRepository.count();
     }
+    @Override
+    public Etudiant supprimerMatiere(Long etudiantId, Long matiereId) {
+        Optional<Etudiant> etudiantOpt = etudiantRepository.findById(etudiantId);
+
+        if (etudiantOpt.isPresent()) {
+            Etudiant etudiant = etudiantOpt.get();
+
+            // Vérifier si la matière est présente avant de la supprimer
+            if (etudiant.getMatieres().contains(matiereId)) {
+                etudiant.getMatieres().remove(matiereId);
+                etudiantRepository.save(etudiant); // Sauvegarde des modifications
+            } else {
+                throw new RuntimeException("La matière avec ID " + matiereId + " n'est pas inscrite pour cet étudiant.");
+            }
+
+            return etudiant;
+        } else {
+            throw new RuntimeException("Étudiant non trouvé avec ID : " + etudiantId);
+        }
+    }
 
 
 }

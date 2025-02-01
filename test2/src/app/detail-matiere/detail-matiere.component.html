@@ -20,19 +20,15 @@
                                 </div>
                                 </div>
 
-                                <div class="select-wrapper">
+                              <div class="select-wrapper">
+                                <select id="profId" formControlName="profId">
+                                  <!-- Option vide pour ne pas assigner de professeur -->
+                                  <option value="">Responsable (aucun)</option>
 
-                                  <select
-                                    id="responsable"
-                                    formControlName="responsable"
-                                  >
-                                    <option value="">Responsable </option>
-                                    <option *ngFor="let nom of listProf" [value]="nom">
-                                      {{ nom }}
-                                    </option>
-                                  </select>
-                                </div>
-
+                                  <!-- Options pour les professeurs -->
+                                  <option *ngFor="let prof of listProf" [value]="prof.id">{{ prof.code }}</option>
+                                </select>
+                              </div>
                                   <div class="row justify-content-center mt-3">
                                     <div class="col-md-5">
                                       <div class="custom-input-container">
@@ -64,3 +60,4 @@
 
 
 
+</div>

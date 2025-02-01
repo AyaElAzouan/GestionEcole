@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { jwtDecode } from 'jwt-decode';
-import { throwError } from 'rxjs';
 
 // Modèle pour l'utilisateur
 export interface UserLogin {
@@ -16,42 +15,55 @@ export interface UserLogin {
 })
 export class AuthService {
 
-
   private apiUrl = 'http://localhost:8080/BACKEND/api/auth';
-
 
   constructor(private http: HttpClient) {}
 
   // Méthode pour se connecter
-  login(credentials: { Email: string; Password: string }): Observable<any> {
+  login(credentials: { email: string; password: string }): Observable<any> {
     const loginUrl = `${this.apiUrl}/authenticate`;
     const headers = { 'Content-Type': 'application/json' };
 
     return this.http.post<any>(loginUrl, credentials, { headers }).pipe(
       map((response) => {
-        console.log('Login successful:', response);
         if (response && response.token) {
-          console.log(response.token)
           localStorage.setItem('JwtToken', response.token);
-          console.log(localStorage.getItem('JwtToken'));
         }
         return response;
       }),
       catchError((error) => {
         console.error('Login failed:', error);
-        return throwError(() => new Error('Erreur lors de la connexion'));
+        // Affiche plus d'informations d'erreur
+        if (error.status === 403) {
+          return throwError(() => new Error('Accès interdit - Vérifiez vos identifiants ou permissions'));
+        }
+        return throwError(() => new Error(error.error?.message || 'Erreur lors de la connexion'));
       })
     );
   }
 
+
+  // Méthode d'enregistrement des professeurs
   registerProf(userData: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/registerProf`, userData);
+    return this.http.post<any>(`${this.apiUrl}/registerProf`, userData).pipe(
+      catchError((error) => {
+        console.error('Erreur lors de l\'enregistrement du professeur:', error);
+        return throwError(() => new Error('Erreur lors de l\'enregistrement du professeur'));
+      })
+    );
   }
+
+  // Méthode d'enregistrement des utilisateurs
   registerUser(userData: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/register`, userData);
+    return this.http.post<any>(`${this.apiUrl}/register`, userData).pipe(
+      catchError((error) => {
+        console.error('Erreur lors de l\'enregistrement de l\'utilisateur:', error);
+        return throwError(() => new Error('Erreur lors de l\'enregistrement de l\'utilisateur'));
+      })
+    );
   }
 
-
+  // Méthode pour se déconnecter
   logout(): void {
     localStorage.removeItem('JwtToken');
     console.log('Utilisateur déconnecté, token supprimé.');
@@ -67,6 +79,7 @@ export class AuthService {
     return this.getToken() !== null;
   }
 
+  // Méthode pour récupérer l'utilisateur actuel à partir du token
   currentUser(): UserLogin | null {
     const token = this.getToken();
     if (token) {
@@ -87,7 +100,7 @@ export class AuthService {
     const token = this.getToken();
     if (token) {
       const tokenPayload: any = jwtDecode(token);
-      if (tokenPayload.role && tokenPayload.role.length > 0) {
+      if (tokenPayload && Array.isArray(tokenPayload.role) && tokenPayload.role.length > 0) {
         return tokenPayload.role[0].authority; // Supposons que le rôle est stocké dans un tableau "role"
       }
     }
@@ -106,13 +119,13 @@ export class AuthService {
   getProfessorEmails(): Observable<string[]> {
     return this.http.get<string[]>(`${this.apiUrl}/professors/emails`).pipe(
       catchError((error) => {
-        console.error('Erreur lors de la récupération des emails:', error);
+        console.error('Erreur lors de la récupération des emails des professeurs:', error);
         return of([]); // Retourne un tableau vide en cas d'erreur
       })
     );
   }
 
-
+  // Méthode pour récupérer l'ID de l'utilisateur actuel
   getUserId(): number | null {
     const token = this.getToken();
 
@@ -126,6 +139,4 @@ export class AuthService {
 
     return null;
   }
-
 }
-

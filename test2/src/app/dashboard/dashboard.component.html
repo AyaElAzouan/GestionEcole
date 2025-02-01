@@ -1,169 +1,182 @@
 <div class="main-content">
-    <div class="container-fluid">
-        <div class="row">
-            <!-- Colonne gauche : Première carte -->
-            <div class="col-lg-9 col-md-8 col-sm-12 d-flex flex-column">
-                <div class="card card-stats" style="width: 100%; height: 500px;">
-                    <div class="card-header card-header-warning card-header-icon">
-                        <div class="card-icon">
-                            <i class="material-icons">content_copy</i>
-                        </div>
-                    </div>
-                    <div class="card-body" style="padding: 0; height: 100%; display: flex; justify-content: center; align-items: center;">
-                        <div style="overflow-x: auto; width: 100%; max-width: 100%; padding-right: 10px;">
-                            <svg [attr.width]="modulesData.length * 80 + 50" height="300">
-                                <line x1="50" y1="10" x2="50" y2="270" stroke="rgb(70, 70, 70)" stroke-width="3"></line>
-                                <line x1="50" y1="270" [attr.x2]="modulesData.length * 80 + 10" y2="270" stroke="rgb(70, 70, 70)" stroke-width="3"></line>
-                                <g *ngFor="let value of [200, 150, 100, 50, 0]; let j = index">
-                                    <line x1="50" x2="45" [attr.y]="270 - (value * 0.8)" stroke="rgb(70, 70, 70)" stroke-width="2"></line>
-                                    <text x="30" [attr.y]="270 - (value * 0.8)" text-anchor="end" font-size="12" fill="rgb(70, 70, 70)">
-                                        {{ value }}
-                                    </text>
-                                </g>
-                                <g *ngFor="let data of modulesData; let i = index">
-                                    <line [attr.x1]="(i + 1) * 80" [attr.x2]="(i + 1) * 80" y1="270" y2="275" stroke="rgb(70, 70, 70)" stroke-width="2"></line>
-                                    <text [attr.x]="(i + 1) * 80" y="290" text-anchor="middle" font-size="12" fill="rgb(70, 70, 70)">
-                                        {{ data.module }}
-                                    </text>
-                                </g>
-                                <g *ngFor="let data of modulesData; let i = index">
-                                    <rect
-                                        [attr.x]="(i + 1) * 80 - 20"
-                                        [attr.y]="270 - (data.students * 0.8)"
-                                        width="40"
-                                        [attr.height]="data.students * 0.8"
-                                        [attr.fill]="data === maxModule ? 'rgb(255, 99, 71)' : 'rgb(100, 149, 237)'"
-                                        [attr.stroke]="data === maxModule ? 'rgb(255, 69, 0)' : 'none'"
-                                        [attr.stroke-width]="2"
-                                        rx="8" ry="8"
-                                    ></rect>
-                                    <text
-                                        [attr.x]="(i + 1) * 80"
-                                        [attr.y]="270 - (data.students * 0.8) - 10"
-                                        text-anchor="middle"
-                                        font-size="12"
-                                        fill="rgb(70, 70, 70)"
-                                    >
-                                        {{ data.students }}
-                                    </text>
-                                </g>
-                                <text x="250" y="20" font-size="16" font-weight="bold" fill="rgb(70, 70, 70)" text-anchor="middle">
-                                    Effectifs des Étudiants par Module
-                                </text>
-                            </svg>
-                        </div>
-                    </div>
-                </div>
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Colonne gauche : Première carte -->
+      <div class="col-lg-9 col-md-8 col-sm-12 d-flex flex-column">
+        <div class="card card-stats" style="width: 100%; height: 500px;">
+          <div class="card-header card-header-warning card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons">content_copy</i>
             </div>
-
-            <!-- Colonne droite : Deuxième et troisième cartes -->
-            <div class="col-lg-3 col-md-4 col-sm-12 d-flex flex-column">
-                <!-- Deuxième carte -->
-
-
-                <!-- Troisième carte -->
-                <div class="card card-stats" style="flex: 1;">
-                    <div class="card-header card-header-info card-header-icon">
-                        <div class="card-icon">
-                            <i class="material-icons">cloud</i>
-                        </div>
-                        <p class="card-category"> <span class="text-success"><i class="fa fa-long-arrow-up"></i> {{ highestModule?.percentage }}% </span></p>
-                        <h4 class="card-title">+{{ highestModule?.students }} {{ highestModule?.module }}</h4>
-                    </div>
-                    <div class="card-footer">
-                        <div class="stats">
-                            <i class="material-icons">update</i> Just Updated
-                        </div>
-                    </div>
-                </div>
-                <div class="card card-stats mb-3" style="flex: 1;">
-                    <div class="card-header card-header-danger card-header-icon">
-                        <div class="card-icon">
-                            <i class="material-icons">info_outline</i>
-                        </div>
-                        <p class="card-category"><span class="text-danger"><i class="fa fa-long-arrow-down"></i> {{ lowestModule?.percentage }}% </span></p>
-                        <h4 class="card-title">-{{ lowestModule?.students }} {{ lowestModule?.module }}</h4>
-                    </div>
-                    <div class="card-footer">
-                        <div class="stats">
-                            <i class="material-icons">local_offer</i> Tracked from database
-                        </div>
-                    </div>
-                </div>
+          </div>
+          <div class="card-body" style="padding: 0; height: 100%; display: flex; justify-content: center; align-items: center;">
+            <div style="overflow-x: auto; width: 100%; max-width: 100%; padding-right: 10px;">
+              <svg [attr.width]="modulesData.length * 80 + 50" height="300">
+                <line x1="50" y1="10" x2="50" y2="270" stroke="rgb(70, 70, 70)" stroke-width="3"></line>
+                <line x1="50" y1="270" [attr.x2]="modulesData.length * 80 + 10" y2="270" stroke="rgb(70, 70, 70)" stroke-width="3"></line>
+                <g *ngFor="let value of [200, 150, 100, 50, 0]; let j = index">
+                  <line x1="50" x2="45" [attr.y]="270 - (value * 0.8)" stroke="rgb(70, 70, 70)" stroke-width="2"></line>
+                  <text x="30" [attr.y]="270 - (value * 0.8)" text-anchor="end" font-size="12" fill="rgb(70, 70, 70)">
+                    {{ value }} %
+                  </text>
+                </g>
+                <g *ngFor="let data of modulesData; let i = index">
+                  <line [attr.x1]="(i + 1) * 80" [attr.x2]="(i + 1) * 80" y1="270" y2="275" stroke="rgb(70, 70, 70)" stroke-width="2"></line>
+                  <text [attr.x]="(i + 1) * 80" y="290" text-anchor="middle" font-size="12" fill="rgb(70, 70, 70)">
+                    {{ data.module }}
+                  </text>
+                </g>
+                <g *ngFor="let data of modulesData; let i = index">
+                  <rect
+                    [attr.x]="(i + 1) * 80 - 20"
+                    [attr.y]="270 - (data.percentage * 0.8)"
+                    width="40"
+                    [attr.height]="data.percentage * 0.8"
+                    [attr.fill]="
+                        data.percentage < 50 ? 'rgb(255, 69, 0)' :
+                        data.percentage < 75 ? 'rgb(255, 165, 0)' :
+                        'rgb(100, 149, 237)'
+                      "
+                    rx="8" ry="8"
+                  ></rect>
+                  <text
+                    [attr.x]="(i + 1) * 80"
+                    [attr.y]="270 - (data.percentage * 0.8) - 10"
+                    text-anchor="middle"
+                    font-size="12"
+                    fill="rgb(70, 70, 70)"
+                  >
+                    {{ data.students }}
+                  </text>
+                </g>
+                <text x="250" y="20" font-size="16" font-weight="bold" fill="rgb(70, 70, 70)" text-anchor="middle">
+                  Effectifs des Étudiants par Module
+                </text>
+              </svg>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Colonne droite : Deuxième et troisième cartes -->
+      <div class="col-lg-3 col-md-4 col-sm-12 d-flex flex-column">
+        <!-- Troisième carte -->
+        <div class="card card-stats mb-3" style="flex: 1;">
+          <div class="card-header card-header-info card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons">cloud</i>
+            </div>
+            <p class="card-category"> <span class="text-success"><i class="fa fa-long-arrow-up"></i> {{ highestModule?.percentage| number:'1.2-2'  }}% </span></p>
+            <h4 class="card-title">+{{ highestModule?.students }} {{ highestModule?.module }}</h4>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+              <i class="material-icons">update</i> Just Updated
+            </div>
+          </div>
         </div>
 
+        <div class="card card-stats" style="flex: 1;">
+          <div class="card-header card-header-danger card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons">info_outline</i>
+            </div>
+            <p class="card-category"><span class="text-danger"><i class="fa fa-long-arrow-down"></i> {{ lowestModule?.percentage | number:'1.2-2' }}% </span></p>
+            <h4 class="card-title">-{{ lowestModule?.students }} {{ lowestModule?.module }}</h4>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+              <i class="material-icons">local_offer</i> Tracked from database
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card card-chart">
-                    <div class="card-header card-header-success">
-                        <div class="ct-chart" id="dailySalesChart"></div>
-                    </div>
-                    <div class="card-body">
-                        <h4 class="card-title" style="display: flex; align-items: center;">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="card card-chart">
+          <div class="card-header card-header-success">
+            <div class="ct-chart" id="dailySalesChart"></div>
+          </div>
+          <div class="card-body">
+            <h4 class="card-title" style="display: flex; align-items: center;">
                             <span class="text-success">
-                              <i class="material-icons" style="font-size: 48px;">forward_30</i>
+                                <i class="material-icons" style="font-size: 48px;">forward_30</i>
                             </span>
-                            <span style="margin-left: 8px;">{{ totalEtudiants }} Étudiants</span>
-                          </h4>
-                    </div>
-                    <div class="card-footer">
-                        <div class="stats">
-                            <i class="material-icons">access_time</i> just updated
-                        </div>
-                    </div>
-                </div>
+              <span style="margin-left: 8px;">{{ totalEtudiants }} Étudiants</span>
+            </h4>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+              <i class="material-icons">access_time</i> just updated
             </div>
-            <div class="col-md-4">
-                <div class="card card-chart">
-                    <div class="card-header card-header-warning">
-                        <div class="ct-chart" id="websiteViewsChart"></div>
-                    </div>
-                    <div class="card-body">
-                        <h4 class="card-title" style="display: flex; align-items: center;">
-                            <span class="text-warning">
-                              <i class="material-icons" style="font-size: 48px;">forward_30</i>
-                            </span>
-                            <span style="margin-left: 8px;"> {{totalMatieres}} Modules</span>
-                          </h4>
-                    </div>
-                    <div class="card-footer">
-                        <div class="stats">
-                            <i class="material-icons">access_time</i> just updated
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card card-chart">
-                    <div class="card-header card-header-danger">
-                        <div class="ct-chart" id="completedTasksChart"></div>
-                    </div>
-                    <div class="card-body">
-                        <h4 class="card-title" style="display: flex; align-items: center;">
-                            <span class="text-danger">
-                              <i class="material-icons" style="font-size: 48px;">forward_30</i>
-                            </span>
-                            <span style="margin-left: 8px;">50 Professeurs</span>
-                          </h4>
-                    </div>
-                    <div class="card-footer">
-                        <div class="stats">
-                            <i class="material-icons">access_time</i> just updated
-                        </div>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
+      </div>
 
+      <div class="col-md-3">
+        <div class="card card-chart">
+          <div class="card-header card-header-warning">
+            <div class="ct-chart" id="websiteViewsChart"></div>
+          </div>
+          <div class="card-body">
+            <h4 class="card-title" style="display: flex; align-items: center;">
+                            <span class="text-warning">
+                                <i class="material-icons" style="font-size: 48px;">forward_30</i>
+                            </span>
+              <span style="margin-left: 8px;">{{ totalMatieres }} Modules</span>
+            </h4>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+              <i class="material-icons">access_time</i> just updated
+            </div>
+          </div>
+        </div>
+      </div>
 
+      <div class="col-md-3">
+        <div class="card card-chart">
+          <div class="card-header card-header-danger">
+            <div class="ct-chart" id="completedTasksChart"></div>
+          </div>
+          <div class="card-body">
+            <h4 class="card-title" style="display: flex; align-items: center;">
+                            <span class="text-danger">
+                                <i class="material-icons" style="font-size: 48px;">forward_30</i>
+                            </span>
+              <span style="margin-left: 8px;">{{ totalProfs }} Professeurs</span>
+            </h4>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+              <i class="material-icons">access_time</i> just updated
+            </div>
+          </div>
+        </div>
+      </div>
 
-
-
-
-
-
+      <div class="col-md-3">
+        <div class="card card-chart">
+          <div class="card-header card-header-info">
+            <div class="ct-chart" id="newChart"></div>
+          </div>
+          <div class="card-body">
+            <h4 class="card-title" style="display: flex; align-items: center;">
+                            <span class="text-info">
+                                <i class="material-icons" style="font-size: 48px;">forward_30</i>
+                            </span>
+              <span style="margin-left: 8px;">{{totalInscriptions}} Inscriptions</span>
+            </h4>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+              <i class="material-icons">access_time</i> just updated
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-
+</div>

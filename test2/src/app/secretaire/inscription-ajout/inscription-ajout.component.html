@@ -1,0 +1,48 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header card-header-danger">
+          <h4 class="card-title">Inscription</h4>
+          <p class="card-category">ENSA Tanger</p>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="InscForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+              <div class="select-wrapper">
+                <label for="moduleId">Matière :</label>
+                <select id="moduleId" formControlName="moduleId" class="form-control">
+                  <option value="">Sélectionnez une matière</option>
+                  <option *ngFor="let matiere of listMatiere" [value]="matiere.id">{{ matiere.nom }}</option>
+                </select>
+                <small class="text-danger" *ngIf="InscForm.get('moduleId')?.invalid && InscForm.get('moduleId')?.touched">
+                  La sélection d’une matière est obligatoire.
+                </small>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="select-wrapper">
+                <label for="etudiantId">Étudiant :</label>
+                <select id="etudiantId" formControlName="etudiantId" class="form-control">
+                  <option value="">Sélectionnez un étudiant</option>
+                  <option *ngFor="let etudiant of listEtudiants" [value]="etudiant.id">{{ etudiant.cne }}</option>
+                </select>
+                <small class="text-danger" *ngIf="InscForm.get('etudiantId')?.invalid && InscForm.get('etudiantId')?.touched">
+                  La sélection d’un étudiant est obligatoire.
+                </small>
+              </div>
+            </div>
+
+
+
+            <div class="d-flex justify-content-end">
+              <button mat-raised-button type="submit" class="btn btn-danger">Créer</button>
+              <button type="button" class="btn btn-secondary ml-2" (click)="onCancel()">Annuler</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

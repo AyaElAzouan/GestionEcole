@@ -1,33 +1,40 @@
-import { Component, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MatTooltipModule } from '@angular/material/tooltip'; 
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Professor } from '../../models/Professor.model';
-import { Matiere } from '../../models/matière.model';
+import { Prof } from '../../models/Prof.model'; // Assurez-vous que le modèle est correct
+import { ProfesseurService } from '../../services/professeur.service';
+
 @Component({
   selector: 'app-gestio-prof',
   standalone: true,
-  imports: [CommonModule,MatTooltipModule,FormsModule],
+  imports: [CommonModule, MatTooltipModule, FormsModule],
   templateUrl: './gestio-prof.component.html',
-  styleUrl: './gestio-prof.component.css'
+  styleUrls: ['./gestio-prof.component.css']
 })
-export class GestioProfComponent {
+export class GestioProfComponent implements OnInit {
 
- constructor(private router: Router) {
+  filteredProfessors: Prof[] = [];
+  filterText: string = '';
+  professors: Prof[] = [];
 
+  constructor(private router: Router, private profService: ProfesseurService) {}
+
+  ngOnInit(): void {
+    this.loadProfs(); // Appel à la méthode pour charger les professeurs
   }
 
-  filteredProfessors: Professor[] = [];
-  filterText: string = '';
-
-  professors = [
-    { id: 1, nom: 'Badir', prenom: 'Hassan', email: 'Badir@uae.ac.ma' },
-    { id: 2, nom: 'EZZINE', prenom: 'Monsieur', email: 'ezzine@uae.ac.ma' },
-    { id: 3, nom: 'Tanana', prenom: 'Madame', email: 'tanana@uae.ac.ma' }
-  ];
-  ngOnInit(): void {
-    this.filteredProfessors = [...this.professors];
+  loadProfs(): void {
+    this.profService.getProfs().subscribe(
+      (data) => {
+        this.professors = data;
+        this.filteredProfessors = [...this.professors]; // Assurez-vous que les données sont bien affectées
+      },
+      (error) => {
+        console.error('Erreur lors du chargement des professeurs', error);
+      }
+    );
   }
 
   onFilter(): void {
@@ -38,30 +45,25 @@ export class GestioProfComponent {
       this.filteredProfessors = this.professors.filter(professor =>
         professor.nom.toLowerCase().includes(searchTerm) ||
         professor.prenom.toLowerCase().includes(searchTerm) ||
-        professor.email.toLowerCase().includes(searchTerm)
+        professor.user.email.toLowerCase().includes(searchTerm)
       );
     }
   }
-  onEdit(professor: Professor): void {
+
+  onEdit(professor: Prof): void {
     this.router.navigate(['/detail-prof', professor.id]);
   }
 
   onDelete(id: number): void {
     if (confirm('Êtes-vous sûr de vouloir supprimer ce professeur ?')) {
-      this.professors = this.professors.filter(p => p.id !== id);
-      this.onFilter(); // Refresh the filtered list
+        this.profService.deleteProf(id).subscribe(() => {
+         this.loadProfs();
+        });
+      }
     }
-  }
 
 
-
- 
-
-  
-
-  onEdit2(matiere: Matiere): void {
-    this.router.navigate(['/detail-matiere', matiere.id]);
-  }
-
+  // onEdit2(matiere: Matiere): void {
+  //   this.router.navigate(['/detail-matiere', matiere.id]);
+  // }
 }
-

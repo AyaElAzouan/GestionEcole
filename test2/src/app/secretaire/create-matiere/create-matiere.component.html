@@ -31,11 +31,12 @@
                 </div>
               </div>
               <div class="select-wrapper">
-                <select id="profId" formControlName="responsable">
-                  <option value="">Responsable</option>
-                  <option *ngFor="let nom of listProf" [value]="nom">
-                    {{ nom }}
-                  </option>
+                <select id="profId" formControlName="profId">
+                  <!-- Option vide pour ne pas assigner de professeur -->
+                  <option value="">Responsable (aucun)</option>
+
+                  <!-- Options pour les professeurs -->
+                  <option *ngFor="let prof of listProf" [value]="prof.id">{{ prof.code }}</option>
                 </select>
               </div>
             </div>

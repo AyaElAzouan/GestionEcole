@@ -68,7 +68,29 @@ public class AuthenticationSercvice {
                 .token(jwtToken)
                 .build();
     }
+    public Professeur updateProfesseur(Long id, Professeur professeurDetails) {
+        return Profrepository.findById(id).map(professeur -> {
+            professeur.setCin(professeurDetails.getCin());
+            professeur.setCode(professeurDetails.getCode());
+            professeur.setNom(professeurDetails.getNom());
+            professeur.setPrenom(professeurDetails.getPrenom());
+            professeur.setAdresse(professeurDetails.getAdresse());
+            professeur.setNumTele(professeurDetails.getNumTele());
 
+
+            // Mise à jour de l'utilisateur avec hashage du mot de passe
+            User updatedUser = professeurDetails.getUser();
+            if (updatedUser != null) {
+                professeur.getUser().setEmail(updatedUser.getEmail());
+                if (updatedUser.getPassword() != null && !updatedUser.getPassword().isEmpty()) {
+                    professeur.getUser().setPassword(passwordEncoder.encode(updatedUser.getPassword())); // Hash du mot de passe
+                }
+                professeur.getUser().setRole(updatedUser.getRole());
+            }
+
+            return Profrepository.save(professeur);
+        }).orElseThrow(() -> new RuntimeException("Professeur avec ID " + id + " non trouvé"));
+    }
 
 
 

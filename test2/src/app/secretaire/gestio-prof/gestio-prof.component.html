@@ -27,7 +27,8 @@
                 <table class="table">
                   <thead class="text-primary">
                     <tr>
-                      <th>ID</th>
+                      <th>CIN</th>
+                      <th>Code</th>
                       <th>Nom</th>
                       <th>Prénom</th>
                       <th>Email</th>
@@ -37,21 +38,22 @@
                   </thead>
                   <tbody>
                     <tr *ngFor="let professor of filteredProfessors">
-                      <td>{{ professor.id }}</td>
+                      <td>{{ professor.cin }}</td>
+                      <td>{{ professor.code }}</td>
                       <td>{{ professor.nom }}</td>
                       <td>{{ professor.prenom }}</td>
-                      <td class="text-primary">{{ professor.email }}</td>
+                      <td class="text-primary">{{ professor.user.email }}</td>
                       <td>
-                        <button type="button" matTooltip="Détails" 
-                                [matTooltipPosition]="'above'" 
+                        <button type="button" matTooltip="Détails"
+                                [matTooltipPosition]="'above'"
                                 class="btn btn-primary btn-link btn-sm btn-just-icon"
                                 (click)="onEdit(professor)">
                           <i class="material-icons" style="font-size: 1.5rem;">edit</i>
                         </button>
                       </td>
                       <td>
-                        <button type="button" matTooltip="Remove" 
-                                [matTooltipPosition]="'above'" 
+                        <button type="button" matTooltip="Remove"
+                                [matTooltipPosition]="'above'"
                                 class="btn btn-danger btn-link btn-sm btn-just-icon"
                                 (click)="onDelete(professor.id)">
                           <i class="material-icons" style="font-size: 1.5rem;">delete</i>

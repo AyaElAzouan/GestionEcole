@@ -1,0 +1,51 @@
+
+
+.search-box {
+  position: relative;
+  margin: 1rem 0;
+  max-width: 300px;
+  margin-left: 400px;
+}
+
+
+.material-icons {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9c27b0;
+}
+
+.form-control {
+  padding: 0.5rem 0.75rem 0.5rem 2.5rem;
+  border: 1px solid #e3e3e3;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.form-control:focus {
+  border-color: #9c27b0;
+  box-shadow: none;
+  outline: none;
+}
+
+.btn-just-icon {
+  padding: 2px;
+  font-size: 20px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-just-icon:hover {
+  opacity: 0.8;
+}
+
+.btn-primary i {
+  color: #9c27b0;
+}
+
+.btn-danger i {
+  color: #f44336;
+}

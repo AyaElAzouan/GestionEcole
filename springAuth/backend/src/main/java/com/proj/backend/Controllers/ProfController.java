@@ -58,18 +58,7 @@ public class ProfController {
 
 
 
-    // Mettre à jour un prof existant
-    @PutMapping("/{id}")
-    public ResponseEntity<Professeur> updateEtudiant(@PathVariable Long id, @RequestBody Professeur updatedProfesseur) {
-        Professeur existingProf = profService.findById(id);
-        if (existingProf != null) {
-            updatedProfesseur.setId(id); // S'assurer que l'ID correspond
-            profService.save(updatedProfesseur);
-            return ResponseEntity.ok(updatedProfesseur);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
+
 
     // Supprimer un étudiant par son ID
     @DeleteMapping("/{id}")
@@ -87,5 +76,9 @@ public class ProfController {
     public ResponseEntity<Professeur> addMatiereToProfesseur(@PathVariable Long profId, @PathVariable Long matiereId) {
         Professeur updatedProfesseur = profService.addMatiereToProfesseur(profId, matiereId);
         return new ResponseEntity<>(updatedProfesseur, HttpStatus.OK);
+    }
+    @GetMapping("/Total")
+    public long getTotalProfs(){
+        return profService.getTotalProfs();
     }
 }

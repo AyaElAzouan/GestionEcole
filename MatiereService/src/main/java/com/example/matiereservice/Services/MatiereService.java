@@ -18,6 +18,7 @@ public interface MatiereService {
     List<Matiere> findByFiliere(String filiere);
     List<String> getDistinctFilieres();
     Matiere assignProfesseurToMatiere(Long matiereId, Long profId);
+    Matiere supprimerEtudiant(Long matiereId, Long etudiantId);
 
 
 }

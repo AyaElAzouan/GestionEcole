@@ -74,5 +74,10 @@ public class EtudiantController {
     public long getTotalEtudiants(){
         return etudiantService.getTotalEtudaints();
     }
+    @DeleteMapping("/{etudiantId}/supprimer-matiere/{matiereId}")
+    public ResponseEntity<Etudiant> supprimerMatiere(@PathVariable Long etudiantId, @PathVariable Long matiereId) {
+        Etudiant etudiant = etudiantService.supprimerMatiere(etudiantId, matiereId);
+        return ResponseEntity.ok(etudiant);
+    }
 
 }

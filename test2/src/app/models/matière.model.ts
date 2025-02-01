@@ -4,5 +4,4 @@ export interface Matiere {
     profId: number;
     nbrHeure: number;
     filiere:string;
-
   }

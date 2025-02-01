@@ -1,0 +1,68 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Inscriptions de l'Étudiant</h4>
+            <p class="card-category">
+  <span *ngIf="etudiant">
+    Liste des inscriptions de <strong>{{ etudiant.nom }} {{ etudiant.prenom }}</strong>
+  </span>
+              <br>
+              <span *ngIf="etudiant">
+    <strong>CNE: {{ etudiant.cne }}</strong>
+  </span>
+            </p>
+          </div>
+
+          <div class="card-body">
+            <div class="search-box">
+              <i class="material-icons">search</i>
+              <input
+                type="text"
+
+                placeholder="Rechercher un professeur..."
+                class="form-control"
+              >
+            </div>
+
+            <!-- Table -->
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="text-primary">
+                <tr>
+                  <th>Matière</th>
+
+                  <th>Date d'inscription</th>
+                  <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let inscription of filteredInscriptions">
+                  <td>{{ inscription.module?.nom }}</td>
+
+                  <td>{{ inscription.dateInscription | date:'dd/MM/yyyy HH:mm' }}</td>
+                  <td>
+                    <button type="button"
+                            matTooltip="Annuler l'inscription"
+                            class="btn btn-danger btn-link btn-sm btn-just-icon"
+                            (click)="annulerInscription(inscription.moduleId)">
+                      <i class="material-icons" style="font-size: 1.5rem;">cancel</i>
+                    </button>
+
+                  </td>
+                </tr>
+                <tr *ngIf="filteredInscriptions.length === 0">
+                  <td colspan="4" class="text-center">Aucune inscription trouvée.</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

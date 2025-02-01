@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import {DatePipe, NgForOf} from "@angular/common";
+import {MatTooltip} from "@angular/material/tooltip";
+import {ReactiveFormsModule} from "@angular/forms";
 declare const google: any;
 
 interface Marker {
@@ -10,7 +13,12 @@ draggable?: boolean;
 @Component({
   selector: 'app-maps',
   standalone: true,
-  imports: [],
+    imports: [
+        DatePipe,
+        MatTooltip,
+        NgForOf,
+        ReactiveFormsModule
+    ],
   templateUrl: './maps.component.html',
   styleUrl: './maps.component.css'
 })

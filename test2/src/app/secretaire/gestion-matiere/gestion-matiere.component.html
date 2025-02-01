@@ -24,14 +24,14 @@
                 </ul>
               </div>
             </div>
-            <button
-              type="button"
-              class="btn btn-primary btn-sm add-matiere-btn"
-              (click)="openAddMatiereForm()"
-            >
-              <i class="material-icons">add_circle</i>
-              <span class="ajouter-text">Ajouter</span>
-            </button>
+<!--            <button-->
+<!--              type="button"-->
+<!--              class="btn btn-primary btn-sm add-matiere-btn"-->
+<!--              (click)="openAddMatiereForm()"-->
+<!--            >-->
+<!--              <i class="material-icons">add_circle</i>-->
+<!--              <span class="ajouter-text">Ajouter</span>-->
+<!--            </button>-->
           </div>
           <div class="card-body">
             <div class="tab-content">
@@ -51,7 +51,10 @@
                   <!-- Filtrer les matières par filière -->
                   <tr *ngFor="let matiere of filteredMatieres">
                     <td>{{ matiere.nom }}</td>
-                    <td>{{ (getProfName(matiere.profId) | async)?.nom }} {{ (getProfName(matiere.profId) | async)?.prenom }}</td>
+                    <td>
+                      <!-- Utilisation de async pour récupérer l'objet Prof et afficher le nom complet -->
+                      Pr. {{ (getProfName(matiere.profId) | async)?.nom }} {{ (getProfName(matiere.profId) | async)?.prenom }}
+                    </td>
                     <td>{{ matiere.nbrHeure }}</td>
                     <td>{{ matiere.filiere }}</td>
                     <td>

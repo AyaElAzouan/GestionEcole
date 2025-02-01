@@ -1,64 +1,69 @@
 
 
-<div class="main-content">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="card">
-            <div class="card-header card-header-danger">
-              <h4 class="card-title">Table des professeurs</h4>
-              <p class="card-category">Professeurs de ENSA Tanger</p>
-            </div>
-            <div class="card-body">
-              <!-- Search Box -->
-              <div class="search-box">
-                <i class="material-icons">search</i>
-                <input
-                  type="text"
-                  [(ngModel)]="filterText"
-                  (input)="onFilter()"
-                  placeholder="Rechercher un professeur..."
-                  class="form-control"
-                >
-              </div>
 
-              <!-- Table -->
-              <div class="table-responsive">
-                <table class="table">
-                  <thead class="text-primary">
-                    <tr>
-                      <th>ID</th>
-                      <th>Nom</th>
-                      <th>Prénom</th>
-                      <th>Email</th>
-                      <th></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let professor of filteredProfessors">
-                      <td>{{ professor.id }}</td>
-                      <td>{{ professor.nom }}</td>
-                      <td>{{ professor.prenom }}</td>
-                      <td class="text-primary">{{ professor.email }}</td>
-                      <td>
-                        <button type="button" matTooltip="Détails" 
-                                [matTooltipPosition]="'above'" 
-                                class="btn btn-primary btn-link btn-sm btn-just-icon"
-                                (click)="onModule(professor)">
-                          <i class="material-icons" style="font-size: 1.5rem;">info</i>
-                        </button>
-                      </td>
-                      
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Table des professeurs</h4>
+            <p class="card-category">Professeurs de ENSA Tanger</p>
+          </div>
+          <div class="card-body">
+            <!-- Search Box -->
+            <div class="search-box">
+              <i class="material-icons">search</i>
+              <input
+                type="text"
+                [(ngModel)]="filterText"
+                (input)="onFilter()"
+                placeholder="Rechercher un professeur..."
+                class="form-control"
+              >
+            </div>
+
+            <!-- Table -->
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="text-primary">
+                <tr>
+                  <th>CIN</th>
+                  <th>Code</th>
+                  <th>Nom</th>
+                  <th>Prénom</th>
+                  <th>Email</th>
+                  <th></th>
+                  <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let professor of filteredProfessors">
+                  <td>{{ professor.cin }}</td>
+                  <td>{{ professor.code }}</td>
+                  <td>{{ professor.nom }}</td>
+                  <td>{{ professor.prenom }}</td>
+                  <td class="text-primary">{{ professor.user.email }}</td>
+                  <td>
+                    <button type="button" matTooltip="Détails"
+                            [matTooltipPosition]="'above'"
+                            class="btn btn-primary btn-link btn-sm btn-just-icon"
+                           >
+                      <i class="material-icons" style="font-size: 1.5rem;">info</i>
+                    </button>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
+
+
 
 
 

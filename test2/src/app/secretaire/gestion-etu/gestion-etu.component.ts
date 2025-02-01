@@ -31,6 +31,10 @@ export class GestionEtuComponent {
       this.filteredEtudiants = data;
     });
   }
+  onViewInscriptions(etudiantId: number): void {
+    // Rediriger vers la route 'list-inscription' avec l'ID de l'étudiant
+    this.router.navigate(['/inscription-etu', etudiantId]);
+  }
   onFilter(): void {
     if (!this.filterText.trim()) {
       this.filteredEtudiants = [...this.etudiants];

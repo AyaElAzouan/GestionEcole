@@ -36,6 +36,7 @@
                   <thead class="text-primary">
                     <tr>
                       <th>CIN</th>
+                      <th>CNE</th>
                       <th>Nom</th>
                       <th>Prénom</th>
                       <th>Email</th>
@@ -46,9 +47,18 @@
                   <tbody>
                     <tr *ngFor="let etudiant of filteredEtudiants">
                       <td>{{ etudiant.cin }}</td>
+                      <td>{{etudiant.cne}}</td>
                       <td>{{ etudiant.nom }}</td>
                       <td>{{ etudiant.prenom }}</td>
                       <td class="text-primary">{{ etudiant.email }}</td>
+                      <td>
+                        <button type="button" matTooltip="Consulter les inscriptions"
+                                [matTooltipPosition]="'above'"
+                                class="btn btn-info btn-link btn-sm btn-just-icon"
+                                (click)="onViewInscriptions(etudiant.id)">
+                          <i class="material-icons" style="font-size: 1.5rem; color: #007bff;">assignment</i>
+                        </button>
+                      </td>
                       <td>
                         <button type="button" matTooltip="Détails"
                                 [matTooltipPosition]="'above'"

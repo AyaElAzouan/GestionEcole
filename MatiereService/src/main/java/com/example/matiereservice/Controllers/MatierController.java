@@ -111,4 +111,9 @@ public class MatierController {
         Matiere updatedMatiere = matiereService.assignProfesseurToMatiere(matiereId, profId);
         return new ResponseEntity<>(updatedMatiere, HttpStatus.OK);
     }
+    @DeleteMapping("/{matiereId}/supprimer-etudiant/{etudiantId}")
+    public ResponseEntity<Matiere> supprimerEtudiant(@PathVariable Long matiereId, @PathVariable Long etudiantId) {
+        Matiere matiere = matiereService.supprimerEtudiant(matiereId, etudiantId);
+        return ResponseEntity.ok(matiere);
+    }
 }

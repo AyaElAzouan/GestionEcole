@@ -1,3 +1,5 @@
+import {User} from "./user.model";
+
 export interface Prof {
 
   id: number;
@@ -7,4 +9,8 @@ export interface Prof {
   prenom: string;
   adresse: string;
   numTele: string;
+  matieres: number[]; // Liste de matières, probablement des IDs
+  user: User;
+
+
 }

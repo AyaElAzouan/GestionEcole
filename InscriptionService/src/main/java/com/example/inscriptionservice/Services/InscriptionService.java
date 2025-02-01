@@ -13,6 +13,9 @@ public interface InscriptionService {
     void save(Inscription inscription);
     void deleteById(Long id);
     List<Inscription> findByEtudiant(Long Etudiant_id);
+    List<Inscription> findByModule(Long moduleId);
     long getTotalInscriptions();
    Map<Long, Long> getInscriptionsCountByModule();
+    void annulerInscription(Long etudiantId, Long matiereId);
+
 }

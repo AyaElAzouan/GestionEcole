@@ -12,25 +12,25 @@
           <div class="card-body">
             <!-- Search Box -->
             <div class="search-container d-flex justify-content-between align-items-center">
-              <div class="search-box">
-                <i class="material-icons">search</i>
-                <input
-                  type="text"
-                  placeholder="Rechercher une inscription..."
-                  class="form-control"
-                >
-              </div>
-              <!-- Dropdown pour filtrer par matière -->
-              <div class="filter-dropdown">
-
-                <select class="form-control" [(ngModel)]="selectedMatiereId" (change)="filtrerInscriptions()">
-                  <option value="">Toutes les matières</option>
-                  <option *ngFor="let matiere of matieresDistinctes" [value]="matiere.id">
-                    {{ matiere.nom }}
-                  </option>
-                </select>
-              </div>
+            <div class="search-box">
+              <i class="material-icons">search</i>
+              <input
+                type="text"
+                placeholder="Rechercher une inscription..."
+                class="form-control"
+              >
             </div>
+            <!-- Dropdown pour filtrer par matière -->
+            <div class="filter-dropdown">
+
+              <select class="form-control" [(ngModel)]="selectedMatiereId" (change)="filtrerInscriptions()">
+                <option value="">Toutes les matières</option>
+                <option *ngFor="let matiere of matieresDistinctes" [value]="matiere.id">
+                  {{ matiere.nom }}
+                </option>
+              </select>
+            </div>
+          </div>
 
             <!-- Table -->
             <div class="table-responsive">
@@ -74,5 +74,3 @@
     </div>
   </div>
 </div>
-
-

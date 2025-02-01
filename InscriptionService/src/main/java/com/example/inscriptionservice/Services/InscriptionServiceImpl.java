@@ -82,7 +82,11 @@ public class InscriptionServiceImpl implements InscriptionService {
     public List<Inscription> findByEtudiant(Long etudiantId) {
         return inscriptionRepository.findByEtudiantId(etudiantId);
     }
+    @Override
 
+    public List<Inscription> findByModule(Long moduleId) {
+        return inscriptionRepository.findByModuleId(moduleId);
+    }
     @Override
     public long getTotalInscriptions() {
         return inscriptionRepository.count();
@@ -101,5 +105,25 @@ public class InscriptionServiceImpl implements InscriptionService {
         }
 
         return inscriptionsCountByModule;
+    }
+    @Override
+    public void annulerInscription(Long etudiantId, Long matiereId) {
+        System.out.println(etudiantId);
+
+        // Supprimer l'étudiant de la matière
+        String matiereUrl = "http://localhost:8083/api/matieres/" + matiereId + "/supprimer-etudiant/" + etudiantId;
+        restTemplate.delete(matiereUrl);
+
+        // Supprimer la matière de l'étudiant
+        String etudiantUrl = "http://localhost:8082/api/etudiants/" + etudiantId + "/supprimer-matiere/" + matiereId;
+        restTemplate.delete(etudiantUrl);
+
+        // Supprimer l'inscription dans la base de données
+        Inscription inscription = inscriptionRepository.findByEtudiantIdAndModuleId(etudiantId, matiereId);
+        if (inscription != null) {
+            inscriptionRepository.delete(inscription);
+        } else {
+            throw new RuntimeException("Inscription non trouvée !");
+        }
     }
 }

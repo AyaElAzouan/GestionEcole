@@ -11,5 +11,5 @@ public interface ProfService {
     void save(Professeur professeur);
     void deleteById(Long id);
     Professeur addMatiereToProfesseur(Long profId, Long matiereId);
-
+    long getTotalProfs();
 }

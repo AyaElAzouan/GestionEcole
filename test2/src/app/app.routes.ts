@@ -33,6 +33,9 @@ import { CreateMatiereComponent } from './secretaire/create-matiere/create-matie
 import { GestionMatiereComponent } from './secretaire/gestion-matiere/gestion-matiere.component';
 import { MesEtudiantComponent } from './professeur/mes-etudiant/mes-etudiant.component';
 import { MesMatiereComponent } from './professeur/mes-matiere/mes-matiere.component';
+import {InscriptionAjoutComponent} from "./secretaire/inscription-ajout/inscription-ajout.component";
+import {InscriptionListComponent} from "./secretaire/inscription-list/inscription-list.component";
+import {InscriptionEtuComponent} from "./secretaire/inscription-etu/inscription-etu.component";
 
 
 
@@ -42,11 +45,11 @@ import { MesMatiereComponent } from './professeur/mes-matiere/mes-matiere.compon
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',  
+    redirectTo: 'login',
     pathMatch: 'full'
  },
- 
- 
+
+
 
 { path: 'logout',   component: LogoutComponent },
 {path: 'login', component: LoginUserComponent},
@@ -54,7 +57,7 @@ export const routes: Routes = [
 
 
 
-       
+
 //PROF
     {
       path: '',
@@ -78,9 +81,12 @@ export const routes: Routes = [
         { path: 'create-matiere',   component: CreateMatiereComponent },
         { path: 'gestion-matiere',   component: GestionMatiereComponent },
         { path: 'detail-matiere/:id',   component: DetailMatiereComponent },
+        { path: 'create-inscription',   component: InscriptionAjoutComponent},
+        { path: 'list-inscription',   component: InscriptionListComponent},
+        { path: 'inscription-etu/:id-etudiant', component: InscriptionEtuComponent },
       ]
     },
-   //admin 
+   //admin
     {
       path: '',
       component: AdminLayoutComponent,
@@ -90,10 +96,10 @@ export const routes: Routes = [
         { path: 'admin-matiere-details',   component: DetailsMatiereComponent },
         {path: 'prof', component: ProfComponent},
 
-        
+
       ]
     },
-   
+
 
 ];
 
@@ -124,7 +130,7 @@ export const routes: Routes = [
 //     { path: 'parameters',   component: ParametersComponent },
 //     { path: 'detail-prof/:id',   component: DetailProfessorComponent },
 //     { path: 'detail-matiere/:id',   component: DetailMatiereComponent },
-    
+
 
 
 //     { path: 'typography',     component: TypographyComponent },
@@ -159,7 +165,7 @@ export const routes: Routes = [
 //             { path: 'logout',   component: LogoutComponent },
 //       ]
 //     },
- 
+
 //     {
 //       path: '',
 //       children: [

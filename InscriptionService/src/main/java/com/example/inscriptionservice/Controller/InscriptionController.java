@@ -4,8 +4,10 @@ import com.example.inscriptionservice.Entities.Inscription;
 import com.example.inscriptionservice.Services.InscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.relational.core.sql.In;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.io.LineNumberReader;
 import java.util.List;
@@ -58,6 +60,11 @@ public class InscriptionController {
     public List<Inscription> getMatiereByEtudiant(@PathVariable Long id) {
         return inscriptionService.findByEtudiant(id);
     }
+    @GetMapping("/modulee/{id}")
+    public List<Inscription> getInscriptionByModele(@PathVariable Long id) {
+        return inscriptionService.findByModule(id);
+    }
+
 
 
     @GetMapping("/total")
@@ -69,6 +76,14 @@ public class InscriptionController {
     public ResponseEntity<Map<Long, Long>> getInscriptionsCountByModule() {
         Map<Long, Long> inscriptionsCountByModule = inscriptionService.getInscriptionsCountByModule();
         return ResponseEntity.ok(inscriptionsCountByModule);
+    }
+    @DeleteMapping("/{etudiantId}/matieres/{matiereId}")
+    public void annulerInscription(@PathVariable Long etudiantId, @PathVariable Long matiereId) {
+        try {
+            inscriptionService.annulerInscription(etudiantId, matiereId);
+        } catch (RuntimeException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
+        }
     }
 
 }

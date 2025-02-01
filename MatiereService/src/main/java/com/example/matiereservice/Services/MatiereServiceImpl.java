@@ -87,5 +87,24 @@ public class MatiereServiceImpl implements MatiereService{
     public List<String> getDistinctFilieres() {
         return matiereRepository.findDistinctFilieres();
     }
+    @Override
+    public Matiere supprimerEtudiant(Long matiereId, Long etudiantId) {
+        Optional<Matiere> matiereOpt = matiereRepository.findById(matiereId);
 
+        if (matiereOpt.isPresent()) {
+            Matiere matiere = matiereOpt.get();
+
+            // Vérifier si l'étudiant est inscrit avant de le supprimer
+            if (matiere.getEtudiants().contains(etudiantId)) {
+                matiere.getEtudiants().remove(etudiantId);
+                matiereRepository.save(matiere); // Sauvegarde des modifications
+            } else {
+                throw new RuntimeException("L'étudiant avec ID " + etudiantId + " n'est pas inscrit à cette matière.");
+            }
+
+            return matiere;
+        } else {
+            throw new RuntimeException("Matière non trouvée avec ID : " + matiereId);
+        }
+    }
 }

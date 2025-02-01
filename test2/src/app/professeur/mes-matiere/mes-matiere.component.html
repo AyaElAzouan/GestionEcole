@@ -1,79 +1,78 @@
 
-<<<<<<< HEAD
-<!--<div class="main-content">-->
-<!--    <div class="container-fluid">-->
-<!--  <div class="row">-->
-<!--    <div class="col-md-12">-->
-<!--        <div class="card">-->
-<!--            <div class="card-header card-header-tabs card-header-primary">-->
-<!--                <h4 class="card-title">Table des modules</h4>-->
-<!--                <p class="card-category"></p>-->
-<!--                <div class="nav-tabs-navigation">-->
-<!--                    <div class="nav-tabs-wrapper">-->
-<!--                        <span class="nav-tabs-title">Choisir la filière:</span>-->
-<!--                        <ul class="nav nav-tabs" data-tabs="tabs">-->
-<!--                            <li class="nav-item" *ngFor="let fil of filieres">-->
-<!--                                <a -->
-<!--                                  class="nav-link" -->
-<!--                                  [class.active]="selectedFiliere === fil"-->
-<!--                                  (click)="selectFiliere(fil)"-->
-<!--                                  href="javascript:void(0);"-->
-<!--                                >-->
-<!--                                  {{fil}}-->
-<!--                                  <div class="ripple-container"></div>-->
-<!--                                </a>-->
-<!--                              </li>-->
-<!--                        </ul>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="card-body">-->
-<!--                <div class="tab-content">-->
-<!--                    <div class="tab-pane active" id="profile">-->
-<!--                        <table class="table">-->
-<!--                            <thead class="text-primary">-->
-<!--                              <tr >-->
-<!--                                <th>ID</th>-->
-<!--                                <th>Nom</th>-->
-<!--                                <th>Responsable</th>-->
-<!--                                <th>Volume Horaire</th>-->
-<!--                                <th></th>-->
-<!--                                <th></th>-->
-<!--                              </tr>-->
-<!--                            </thead>-->
-<!--                            <tbody>-->
-<!--                              <tr *ngFor="let matiere of filteredMatieres" >-->
-<!--                                <td>{{matiere.id}}</td>-->
-<!--                                <td>{{matiere.nom}}</td>-->
-<!--                                <td>{{matiere.responsable}}</td>-->
-<!--                                <td>{{matiere.volume_horaire}}</td>-->
-<!--                                <td>-->
-<!--                                  <button type="button" matTooltip="Détails" -->
-<!--                                          [matTooltipPosition]="'above'" -->
-<!--                                          class="btn btn-primary btn-link btn-sm btn-just-icon"-->
-<!--                                          (click)="onEdit2(matiere)"-->
-<!--                                         >-->
-<!--                                    <i class="material-icons" style="font-size: 1.5rem;">edit</i>-->
-<!--                                  </button>-->
-<!--                                </td>-->
-<!--                                <td>-->
-<!--                                  <button type="button" matTooltip="Remove" -->
-<!--                                          [matTooltipPosition]="'above'" -->
-<!--                                          class="btn btn-danger btn-link btn-sm btn-just-icon"-->
-<!--                                         >-->
-<!--                                    <i class="material-icons" style="font-size: 1.5rem;">delete</i>-->
-<!--                                  </button>-->
-<!--                                </td>-->
-<!--                              </tr>-->
-<!--                            </tbody>-->
-<!--                          </table>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--   -->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
+<div class="main-content">
+    <div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-tabs card-header-primary">
+                <h4 class="card-title">Table des modules</h4>
+                <p class="card-category"></p>
+                <div class="nav-tabs-navigation">
+                    <div class="nav-tabs-wrapper">
+                        <span class="nav-tabs-title">Choisir la filière:</span>
+                        <ul class="nav nav-tabs" data-tabs="tabs">
+                            <li class="nav-item" *ngFor="let fil of filieres">
+                                <a
+                                  class="nav-link"
+                                  [class.active]="selectedFiliere === fil"
+                                  (click)="selectFiliere(fil)"
+                                  href="javascript:void(0);"
+                                >
+                                  {{fil}}
+                                  <div class="ripple-container"></div>
+                                </a>
+                              </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="profile">
+                        <table class="table">
+                            <thead class="text-primary">
+                              <tr >
+                                <th>ID</th>
+                                <th>Nom</th>
+
+                                <th>Volume Horaire</th>
+                                <th></th>
+                                <th></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let matiere of filteredMatieres" >
+                                <td>{{matiere.id}}</td>
+                                <td>{{matiere.nom}}</td>
+
+                                <td>{{matiere.nbrHeure}}</td>
+                                <td>
+                                  <button type="button" matTooltip="Détails"
+                                          [matTooltipPosition]="'above'"
+                                          class="btn btn-primary btn-link btn-sm btn-just-icon"
+                                          (click)="onEdit2(matiere)"
+                                         >
+                                    <i class="material-icons" style="font-size: 1.5rem;">edit</i>
+                                  </button>
+                                </td>
+                                <td>
+                                  <button type="button" matTooltip="Remove"
+                                          [matTooltipPosition]="'above'"
+                                          class="btn btn-danger btn-link btn-sm btn-just-icon"
+                                         >
+                                    <i class="material-icons" style="font-size: 1.5rem;">delete</i>
+                                  </button>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+</div>
 
